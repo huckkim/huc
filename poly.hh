@@ -25,7 +25,6 @@ public:
             new(coeff+(i++)) T(x);
         }
     }
-
     Polynomial(const Polynomial<T> &other):degree{other.degree}, coeff{static_cast<T*> (operator new(sizeof(T)*(degree+1)))}{
         for(size_t i = 0; i <= degree; ++i)
             new(coeff+i) T(other.coeff[i]);
@@ -61,6 +60,22 @@ public:
 
     T &operator[](size_t i){return coeff[i];}
     const T &operator[](size_t i) const {return coeff[i];}
+
+    T operator()(const T &x){
+        T sum = T{};
+        for(size_t i = 0; i <= degree; ++i){
+            if(i == 0) sum += coeff[i];
+            else if(i == 1) sum += coeff[i] * x;
+            else{
+                T nx = x;
+                for(size_t j = 2; j <= i; ++j){
+                    nx *= x;
+                }
+                sum += coeff[i] * nx;
+            }
+        }
+        return sum;
+    }
 
     size_t getDegree(){return degree;}
     const size_t getDegree() const{return degree;}
@@ -139,5 +154,5 @@ template <typename T> Polynomial<T> operator*(const Polynomial<T> &p1, const Pol
     }
     return p;
 }
-}
+} // namespace schoof
 #endif
