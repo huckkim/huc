@@ -6,30 +6,16 @@
 
 namespace schoof{
 
-class Zmod{
-    int modulus;
-    int n;
-public:
-    Zmod(int modulus = 2, int n = 0):modulus{modulus}, n{n % modulus}{}
-    int val(){return n;}
-    const int val() const {return n;}
-
-    int mod(){return modulus;}
-    const int mod() const{return modulus;}
+template<typename T>
+concept Field = requires(T a, T b){
+    {a.zero()}->std::same_as<T>;
+    {a.one()}->std::same_as<T>;
+    {a.negative()}->std::same_as<T>
+    {a.inverse()}->std::same_as<T>;
+    {a+b}->std::same_as<T>;
+    {a*b}->std::same_as<T>;
 };
 
-std::ostream &operator<<(std::ostream &os, const Zmod &z){
-    os<<z.val();
-    return os;
-}
-
-Zmod operator+(const Zmod &z1, const Zmod &z2){
-    return Zmod{z1.mod(), z1.val() + z2.val()};
-}
-
-Zmod operator*(const Zmod &z1, const Zmod &z2){
-    return Zmod{z1.mod(), z1.val() * z2.val()};
-}
 
 }
 

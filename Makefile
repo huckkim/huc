@@ -1,5 +1,5 @@
-CXX = g++
-CXXFLAGS = -std=c++14 -Wall -MMD
+CXX = g++-10
+CXXFLAGS = -std=c++20 -Wall -MMD
 EXEC = myprogram
 OBJECTS = main.o 
 DEPENDS = ${OBJECTS:.o=.d}
