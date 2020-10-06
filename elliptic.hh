@@ -1,18 +1,26 @@
 #ifndef ELLIPTIC_H
 #define ELLIPTIC_H
 
-/*
+#include "algebraic.hh"
+
 namespace schoof
 {
 
-template<typename T> class Elliptic{
-    T A, B; 
-    Polynomial<T> relation;
+/*
+template<Ring R>
+class Elliptic{
+    typedef typename R::element RElem;
+    Polynomial<R> relation;
+    class Element{
+        RElem alpha, beta;
+    };
 public:
-    Elliptic(T A, T B):A{A}, B{B}, relation{Polynomial<T>{A, B}}{
-    }
+    Elliptic(RElem A, RElem B):relation{Polynomial<R> {B, A, R.zero(), R.one()}}{}
+    Element zero();
+    Element one();
 };
-}// namespace schoof
 */
+
+}// namespace schoof
 
 #endif

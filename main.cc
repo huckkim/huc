@@ -1,10 +1,8 @@
 #include <iostream>
-//#include "poly.hh"
-//#include "finfield.hh"
+#include "poly.hh"
 #include "elliptic.hh"
-#include "concept_poly.hh"
 
-//using namespace schoof;
+using namespace schoof;
 
 class IntRing{
 public:
@@ -41,24 +39,21 @@ IntRing::element operator*(IntRing::element a, IntRing::element b){
 }
 
 std::ostream &operator<<(std::ostream &os, const IntRing::element &a){
-    int b = a.n;
-    //std::cout<<"hmmm"<<std::endl;
     os<<a.n;
     return os;
 }
 
-template<concept_testing::RingElement R>
+template<RingElement R>
 R add(R a, R b){
     return a+b;
 }
 
-template<concept_testing::Ring R>
+template<Ring R>
 typename R::element ring_add(R r){
     typename R::element a = r.zero();
     typename R::element b = r.one();
     return a+b;
 }
-using namespace concept_testing;
 
 int main(){
     IntRing I;
