@@ -11,11 +11,22 @@ public:
     class element{
         int n;
     public:
+        element():n{0}{}
         element(int n):n{n}{}
+
+        element &operator+=(element a){
+            n += a.n;
+            return *this;
+        }
+        element &operator*=(element a){
+            n *= a.n;
+            return *this;
+        }
+
         friend class IntRing;
         friend IntRing::element operator+(IntRing::element a, IntRing::element b);
         friend IntRing::element operator*(IntRing::element a, IntRing::element b);
-        friend std::ostream &operator<<(std::ostream &os, element a);
+        friend std::ostream &operator<<(std::ostream &os, const element &a);
     };
     element zero(){ return element{0}; }
     element one(){ return element{1}; }
@@ -29,7 +40,9 @@ IntRing::element operator*(IntRing::element a, IntRing::element b){
     return IntRing::element{a.n * b.n};
 }
 
-std::ostream &operator<<(std::ostream &os, IntRing::element a){
+std::ostream &operator<<(std::ostream &os, const IntRing::element &a){
+    int b = a.n;
+    //std::cout<<"hmmm"<<std::endl;
     os<<a.n;
     return os;
 }
@@ -45,53 +58,37 @@ typename R::element ring_add(R r){
     typename R::element b = r.one();
     return a+b;
 }
-
-using concept_testing::Polynomial;
+using namespace concept_testing;
 
 int main(){
     IntRing I;
-    IntRing::element zero = I.zero();
     IntRing::element one = I.one();
+    IntRing::element two = one + one;
+    IntRing::element three = one + two;
 
-    //add<IntRing>(zero, one);
+    std::cout<<one<<" "<<two<<" "<<three<<std::endl;
 
-    std::cout<<add<IntRing::element>(zero, one)<<std::endl;
+    Polynomial<IntRing> f{one, two, three};
+    std::cout<<"f: "<<f<<std::endl;
 
-    std::cout<<ring_add<IntRing>(I)<<std::endl;
+    IntRing::element sum = add<IntRing::element>(one, two);
+    std::cout<<"sum: "<<sum<<std::endl;
 
-    Polynomial<IntRing> p(4, I.zero());
-    Polynomial<IntRing> f{I.zero(), I.zero(), I.one()};
+    IntRing::element val = f(two);
+    std::cout<<"f(two): "<<val<<std::endl;
 
-    Polynomial<IntRing> g = f;
-    Polynomial<IntRing> h(2, I.one());
-    h = g; 
+    Polynomial<IntRing> g(5, I.one());
+    std::cout<<"g: "<<g<<std::endl;
+    std::cout<<"g(two): "<<g(two)<<std::endl;
 
-    /*
-    Polynomial<int> f{1,1,1,1,1};
-    Polynomial<int> g = f;
-    std::cout<<f<<std::endl;
-    std::cout<<g<<std::endl;
+    Polynomial<IntRing> h = f * g;
+    std::cout<<"f*g = h: "<<h<<std::endl;
+    std::cout<<"h(two): "<<h(two)<<std::endl;
 
-    Polynomial<int> h = f + g;
-    std::cout<<h<<std::endl;
+    Polynomial<IntRing> t{5};
+    t = f+g;
+    std::cout<<"f+g = t: "<<t<<std::endl;
+    std::cout<<"t(two): "<<t(two)<<std::endl;
 
-    h = f * g;
-    std::cout<<h<<std::endl;
-
-    std::cout<<f(4)<<std::endl;
-    */
-
-    /*
-    Zmod a_5{5, 3};
-    std::cout<<a_5<<std::endl;
-
-    Zmod b_5{5, 12};
-    std::cout<<b_5<<std::endl;
-
-    std::cout<<a_5+b_5<<std::endl;
-    std::cout<<a_5*b_5<<std::endl;
-    */
-    //Polynomial<int> f;
-    //Polynomial<Zmod> g;
     return 0;
 }

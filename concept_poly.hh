@@ -1,6 +1,7 @@
 #ifndef CONCEPT_POLY_H
 #define CONCEPT_POLY_H
 
+#include <iostream>
 #include <concepts>
 #include <utility>
 #include <cstddef>
@@ -12,6 +13,8 @@ template<typename T>
 concept RingElement = requires(T a, T b){
     {a+b}->std::same_as<T>;
     {a*b}->std::same_as<T>;
+    a+=b;
+    a*=b;
 };
 
 // Enforces existence of RingElements and zero/one elements
@@ -52,9 +55,9 @@ template<Ring R> class Polynomial{
     size_t degree;
     RElem* coeff;
 public:
-    Polynomial(size_t degree, RElem x):degree{degree},
+    Polynomial(size_t degree, RElem x = RElem{}):degree{degree},
         coeff{static_cast<RElem*>(operator new(sizeof(RElem)*(degree+1)))}{
-        for(size_t i = 0; i < degree; ++i){
+        for(size_t i = 0; i <= degree; ++i){
             new (coeff+i) RElem(x);
         }
     }
@@ -101,8 +104,73 @@ public:
         clear();
         operator delete(coeff);
     }
+
+    RElem &operator[](size_t i){ return coeff[i]; }
+    const RElem &operator[](size_t i) const { return coeff[i]; }
+
+    RElem operator()(const RElem &x){
+        RElem sum = RElem{};
+        for(size_t i = 0; i <= degree; ++i){
+            if(i == 0) sum += coeff[i];
+            else if(i == 1) sum += coeff[i] * x;
+            else{
+                RElem nx = x;
+                for(size_t j = 2; j <= i; ++j){
+                    nx *= x;
+                }
+                sum += coeff[i] * nx;
+            }
+        }
+        return sum;
+    }
+
+    size_t getDegree(){ return degree; }
+    const size_t getDegree() const { return degree; }
 };
 
+template <Ring R> std::ostream &operator<<(std::ostream &out, const Polynomial<R> &p){
+    for(size_t i = 0; i <= p.getDegree(); ++i){
+        out<<"("<<p[i]<<"x^"<<i<<")";
+    }
+    return out;
+}
+
+template <Ring R> Polynomial<R> operator+(const Polynomial<R> &p1, const Polynomial<R> &p2){
+    size_t mx;
+    size_t p1mx = p1.getDegree();
+    size_t p2mx = p2.getDegree();
+    if(p1mx > p2mx) mx = p1mx;
+    else mx = p2mx;
+    Polynomial<R> p(mx);
+    for(size_t i = 0; i <= mx; ++i){
+        if(mx > p1mx) p[i] = p2[i];
+        else if(mx > p2mx) p[i] = p1[i];
+        else p[i] = p1[i] + p2[i];
+    }
+    return p;
+}
+
+template <Ring R> Polynomial<R> operator*(const Polynomial<R> &p1, const Polynomial<R> &p2){
+    typedef typename R::element RElem;
+    Polynomial<R> p(p1.getDegree() + p2.getDegree());
+    for(size_t k = 0; k <= p1.getDegree() + p2.getDegree(); ++k){
+        RElem new_coeff{};
+        RElem f{};
+        RElem g{};
+        RElem sum{};
+        for(size_t i = 0; i <= k; ++i){
+            new_coeff = RElem{};
+            if(i <= p1.getDegree()) f = p1[i];
+            else f = RElem{};
+            if((k-i) <= p2.getDegree()) g = p2[k-i];
+            else g = RElem{};
+            new_coeff = f * g;
+            sum += new_coeff;
+        }
+        p[k] = sum;
+    }
+    return p;
+}
 }
 
 #endif 
