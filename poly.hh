@@ -19,7 +19,7 @@ namespace schoof{
  */
 template<Ring R>
 class Polynomial{
-    typedef typename R::element RElem;
+    typedef typename R::Element RElem;
     size_t degree;
     RElem* coeff;
 public:
@@ -114,6 +114,7 @@ public:
      * @overload
      */
     const RElem &operator[](size_t i) const { return coeff[i]; }
+
     /**
      * @brief Evaluates the Polynomial at value x
      * @param x value to evaluate at
@@ -177,7 +178,7 @@ Polynomial<R> operator+(const Polynomial<R> &p1, const Polynomial<R> &p2){
  */
 template <Ring R>
 Polynomial<R> operator*(const Polynomial<R> &p1, const Polynomial<R> &p2){
-    typedef typename R::element RElem;
+    typedef typename R::Element RElem;
     Polynomial<R> p(p1.getDegree() + p2.getDegree());
     for(size_t k = 0; k <= p1.getDegree() + p2.getDegree(); ++k){
         RElem new_coeff{};
