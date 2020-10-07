@@ -23,9 +23,9 @@ concept GroupElement = requires(GE a, GE b){
  */
 template<typename G>
 concept Group = requires(G g){
-    typename G::element;
-    {g.zero()}->std::same_as<typename G::element>;
-} && GroupElement<typename G::element>;
+    typename G::Element;
+    {g.zero()}->std::same_as<typename G::Element>;
+} && GroupElement<typename G::Element>;
 
 /**
  * Requirements of RingElement
@@ -47,10 +47,10 @@ concept RingElement = requires(RE a, RE b){
  */
 template<typename R>
 concept Ring = requires(R r){
-    typename R::element;
-    {r.zero()}->std::same_as<typename R::element>;
-    {r.one()}->std::same_as<typename R::element>;
-} && RingElement<typename R::element>;
+    typename R::Element;
+    {r.zero()}->std::same_as<typename R::Element>;
+    {r.one()}->std::same_as<typename R::Element>;
+} && RingElement<typename R::Element>;
 
 /**
  * Requirements of FieldElement
@@ -61,7 +61,7 @@ concept Ring = requires(R r){
 template<typename FE>
 concept FieldElement = requires(FE a, FE b){
     {-a}->std::same_as<FE>;
-    {a.inv()}->std::same_as<FE>
+    {a.inv()}->std::same_as<FE>;
     {a+b}->std::same_as<FE>;
     {a*b}->std::same_as<FE>;
     {a/b}->std::same_as<FE>;
@@ -75,10 +75,10 @@ concept FieldElement = requires(FE a, FE b){
  */
 template<typename F>
 concept Field = requires(F f){
-    typename F::element;
-    {f.zero()}->std::same_as<typename F::element>;
-    {f.one()}->std::same_as<typename F::element>;
-} && FieldElement<typename R::element>;
+    typename F::Element;
+    {f.zero()}->std::same_as<typename F::Element>;
+    {f.one()}->std::same_as<typename F::Element>;
+} && FieldElement<typename F::Element>;
 }
 
 #endif
