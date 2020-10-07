@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['intring_3',['IntRing',['../classIntRing.html',1,'']]]
+  ['intring_4',['IntRing',['../classIntRing.html',1,'']]]
 ];

@@ -1,0 +1,94 @@
+Basic implementation of Schoof\textquotesingle{}s algorithm\hypertarget{index_autotoc_md0}{}\doxysection{Concept Definitions}\label{index_autotoc_md0}
+We rely heavily on C++20\textquotesingle{}s concepts to ensure that the templates adhere to the proper requirements. We provide basic concepts for Groups, Rings, and Fields.(Modules are a W.\+I.\+P). Each concept enfoces basic axioms that can be used by a built in. We mainly enforce existence axioms and valid operations, and assume associativity as enforcing associativty is too expensive.\hypertarget{index_autotoc_md1}{}\doxysubsection{Groups}\label{index_autotoc_md1}
+We first define Group\+Element which must have the following properties
+\begin{DoxyItemize}
+\item Existence and closure under addition \begin{DoxyVerb}{a+b}->std::same_as<GE>;
+\end{DoxyVerb}
+
+\item Existence and closure under unary operator (negation) \begin{DoxyVerb}{-a}->std::same_as<GE>;
+\end{DoxyVerb}
+
+\item Existence of equivalence operator \begin{DoxyVerb}{a==b}->std::same_as<bool>;
+\end{DoxyVerb}
+
+\end{DoxyItemize}
+
+We next define Groups which must have the following properties
+\begin{DoxyItemize}
+\item Existence of Element \begin{DoxyVerb}typename G::Element;
+\end{DoxyVerb}
+
+\item Existence of a additive identity(zero) \begin{DoxyVerb}{g.zero()}->std::same_as<typename G::Element>;
+\end{DoxyVerb}
+
+\item The Element must be a Group\+Element \begin{DoxyVerb}&& GroupElement<typename G::Element>;
+\end{DoxyVerb}
+
+\end{DoxyItemize}\hypertarget{index_autotoc_md2}{}\doxysubsection{Rings}\label{index_autotoc_md2}
+We first define Ring\+Element which must have the following properties
+\begin{DoxyItemize}
+\item Existence and closure under addition \begin{DoxyVerb}{a+b}->std::same_as<RE>;
+\end{DoxyVerb}
+
+\item Existence and closure under multiplication \begin{DoxyVerb}{a*b}->std::same_as<RE>;
+\end{DoxyVerb}
+
+\item Existence and closure under unary operator (negation) \begin{DoxyVerb}{-a}->std::same_as<RE>;
+\end{DoxyVerb}
+
+\item Existence of equivalence operator \begin{DoxyVerb}{a==b}->std::same_as<bool>;
+\end{DoxyVerb}
+
+\end{DoxyItemize}
+
+We next define Rings which must have the following properties
+\begin{DoxyItemize}
+\item Existence of Element \begin{DoxyVerb}typename R::Element;
+\end{DoxyVerb}
+
+\item Existence of an additive identity(zero) \begin{DoxyVerb}{r.zero()}->std::same_as<typename R::Element>;
+\end{DoxyVerb}
+
+\item Existence of a multiplicative identity(one) \begin{DoxyVerb}{r.one()}->std::same_as<typename R::Element>;
+\end{DoxyVerb}
+
+\item The Element must be a Ring\+Element \begin{DoxyVerb}&& RingElement<typename R::Element>;
+\end{DoxyVerb}
+
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysubsection{Fields}\label{index_autotoc_md3}
+We first define Field\+Element which must have the following properties
+\begin{DoxyItemize}
+\item Existence and closure under addition \begin{DoxyVerb}{a+b}->std::same_as<FE>;
+\end{DoxyVerb}
+
+\item Existence and closure under multiplication \begin{DoxyVerb}{a*b}->std::same_as<FE>;
+\end{DoxyVerb}
+
+\item Existence and closure under unary operator (negation) \begin{DoxyVerb}{-a}->std::same_as<FE>;
+\end{DoxyVerb}
+
+\item Existence and closure under inverse function (inverse) \begin{DoxyVerb}{a.inv()}->std::same_as<FE>;
+\end{DoxyVerb}
+
+\item Existence of equivalence operator \begin{DoxyVerb}{a==b}->std::same_as<bool>;
+\end{DoxyVerb}
+
+\end{DoxyItemize}
+
+We next define Fields which must have the following properties
+\begin{DoxyItemize}
+\item Existence of Element \begin{DoxyVerb}typename F::Element;
+\end{DoxyVerb}
+
+\item Existence of an additive identity(zero) \begin{DoxyVerb}{r.zero()}->std::same_as<typename F::Element>;
+\end{DoxyVerb}
+
+\item Existence of a multiplicative identity(one) \begin{DoxyVerb}{r.one()}->std::same_as<typename F::Element>;
+\end{DoxyVerb}
+
+\item The Element must be a Field\+Element \begin{DoxyVerb}&& FieldElement<typename F::Element>;
+\end{DoxyVerb}
+
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysubsection{Modules (\+W.\+I.\+P)}\label{index_autotoc_md4}
+\hypertarget{index_autotoc_md5}{}\doxysection{Built Ins}\label{index_autotoc_md5}
+\hypertarget{index_autotoc_md6}{}\doxysection{Using Schoof\textquotesingle{}s}\label{index_autotoc_md6}

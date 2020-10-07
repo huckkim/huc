@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['clear_13',['clear',['../classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2',1,'schoof::Polynomial']]]
+  ['clear_16',['clear',['../classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2',1,'schoof::Polynomial']]]
 ];

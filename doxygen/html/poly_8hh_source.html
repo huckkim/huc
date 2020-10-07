@@ -70,149 +70,150 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define POLY_H</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>schoof{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;Ring R&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="classschoof_1_1Polynomial.html">Polynomial</a>{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> R::element RElem;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">size_t</span> degree;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    RElem* coeff;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a6eda38225474c0d06422d235b2eb3cfc">   30</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#a6eda38225474c0d06422d235b2eb3cfc">Polynomial</a>(<span class="keywordtype">size_t</span> degree, RElem x = RElem{}):degree{degree},</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        coeff{<span class="keyword">static_cast&lt;</span>RElem*<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="keyword">sizeof</span>(RElem)*(degree+1)))}{</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= degree; ++i){</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keyword">new</span> (coeff+i) RElem(x);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a8981830e575853b6d0f4f0c596cd91bf">   40</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#a8981830e575853b6d0f4f0c596cd91bf">Polynomial</a>(std::initializer_list&lt;RElem&gt; init):degree{init.size()-1},</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        coeff{<span class="keyword">static_cast&lt;</span>RElem*<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="keyword">sizeof</span>(RElem)*init.size()))}{</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">size_t</span> i = 0;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">auto</span> x : init){</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keyword">new</span>(coeff+(i++)) RElem(x);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#aa4b6c02cebd97692048b0bb1fffa976b">   51</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#aa4b6c02cebd97692048b0bb1fffa976b">Polynomial</a>(<span class="keyword">const</span> <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;other):degree{other.degree}, coeff{<span class="keyword">static_cast&lt;</span>RElem*<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="keyword">sizeof</span>(RElem)*(degree+1)))}{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; degree; ++i){</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keyword">new</span> (coeff+i) RElem(other.coeff[i]);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ace51b717509e1171a540077ddf317c19">   60</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#ace51b717509e1171a540077ddf317c19">Polynomial</a>(<a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;&amp;other):degree{other.degree}, coeff{other.coeff}{</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        other.coeff = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a0aeeb1ed9296bd68276842b5957cacba">   68</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;<a class="code" href="classschoof_1_1Polynomial.html#a0aeeb1ed9296bd68276842b5957cacba">operator=</a>(<span class="keyword">const</span> <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;other){</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> tmp = other;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">using</span> std::swap;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        swap(degree, tmp.degree);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        swap(coeff, tmp.coeff);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ae803a97a8a4db0f69f537f9def5634e5">   80</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;<a class="code" href="classschoof_1_1Polynomial.html#ae803a97a8a4db0f69f537f9def5634e5">operator=</a>(<a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;&amp;other){</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keyword">using</span> std::swap;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        swap(degree, other.degree);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        swap(coeff, other.coeff);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2">   90</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2">clear</a>(){</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        ++degree;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">for</span>(; degree != 0; --degree){</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            coeff[degree-1].~RElem();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a0e1cd690fe8dbdaa084331e18cc1e767">   99</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#a0e1cd690fe8dbdaa084331e18cc1e767">~Polynomial</a>(){</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2">clear</a>();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keyword">operator</span> <span class="keyword">delete</span>(coeff);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ab1abff9cca7e94001e80d5786ec29ab4">  111</a></span>&#160;    RElem &amp;<a class="code" href="classschoof_1_1Polynomial.html#ab1abff9cca7e94001e80d5786ec29ab4">operator[]</a>(<span class="keywordtype">size_t</span> i){ <span class="keywordflow">return</span> coeff[i]; }</div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ae336d952f39e7af3d816e841d87374ee">  115</a></span>&#160;    <span class="keyword">const</span> RElem &amp;<a class="code" href="classschoof_1_1Polynomial.html#ae336d952f39e7af3d816e841d87374ee">operator[]</a>(<span class="keywordtype">size_t</span> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> coeff[i]; }</div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a44146be28942ce0129b15cdaf6b39277">  121</a></span>&#160;    RElem <a class="code" href="classschoof_1_1Polynomial.html#a44146be28942ce0129b15cdaf6b39277">operator()</a>(<span class="keyword">const</span> RElem &amp;x){</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        RElem sum = RElem{};</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= degree; ++i){</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordflow">if</span>(i == 0) sum += coeff[i];</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i == 1) sum += coeff[i] * x;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">else</span>{</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                RElem nx = x;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> j = 2; j &lt;= i; ++j){</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    nx *= x;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                sum += coeff[i] * nx;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">return</span> sum;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    }</div>
-<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ab4b4183c338f359598a2411abc06cfac">  140</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classschoof_1_1Polynomial.html#ab4b4183c338f359598a2411abc06cfac">getDegree</a>(){ <span class="keywordflow">return</span> degree; }</div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a25ea8a42c5c78e131c3dd8a67cf595d8">  144</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="classschoof_1_1Polynomial.html#a25ea8a42c5c78e131c3dd8a67cf595d8">getDegree</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> degree; }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;};</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keyword">template</span> &lt;Ring R&gt;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;Polynomial&lt;R&gt; operator+(<span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p1, <span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p2){</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">size_t</span> mx;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">size_t</span> p1mx = p1.getDegree();</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">size_t</span> p2mx = p2.getDegree();</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">if</span>(p1mx &gt; p2mx) mx = p1mx;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">else</span> mx = p2mx;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    Polynomial&lt;R&gt; p(mx);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= mx; ++i){</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">if</span>(mx &gt; p1mx) p[i] = p2[i];</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(mx &gt; p2mx) p[i] = p1[i];</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">else</span> p[i] = p1[i] + p2[i];</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;} </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keyword">template</span> &lt;Ring R&gt;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;Polynomial&lt;R&gt; operator*(<span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p1, <span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p2){</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> R::element RElem;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    Polynomial&lt;R&gt; p(p1.getDegree() + p2.getDegree());</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> k = 0; k &lt;= p1.getDegree() + p2.getDegree(); ++k){</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        RElem new_coeff{};</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        RElem f{};</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        RElem g{};</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        RElem sum{};</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= k; ++i){</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            new_coeff = RElem{};</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            <span class="keywordflow">if</span>(i &lt;= p1.getDegree()) f = p1[i];</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            <span class="keywordflow">else</span> f = RElem{};</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            <span class="keywordflow">if</span>((k-i) &lt;= p2.getDegree()) g = p2[k-i];</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keywordflow">else</span> g = RElem{};</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            new_coeff = f * g;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            sum += new_coeff;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        }</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        p[k] = sum;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    }</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">template</span> &lt;Ring R&gt;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, <span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p){</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= p.getDegree(); ++i){</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        out&lt;&lt;<span class="stringliteral">&quot;(&quot;</span>&lt;&lt;p[i]&lt;&lt;<span class="stringliteral">&quot;x^&quot;</span>&lt;&lt;i&lt;&lt;<span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;algebraic.hh&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>schoof{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;Ring R&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classschoof_1_1Polynomial.html">Polynomial</a>{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> R::element RElem;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">size_t</span> degree;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    RElem* coeff;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a6eda38225474c0d06422d235b2eb3cfc">   31</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#a6eda38225474c0d06422d235b2eb3cfc">Polynomial</a>(<span class="keywordtype">size_t</span> degree, RElem x = RElem{}):degree{degree},</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        coeff{<span class="keyword">static_cast&lt;</span>RElem*<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="keyword">sizeof</span>(RElem)*(degree+1)))}{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= degree; ++i){</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keyword">new</span> (coeff+i) RElem(x);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a8981830e575853b6d0f4f0c596cd91bf">   41</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#a8981830e575853b6d0f4f0c596cd91bf">Polynomial</a>(std::initializer_list&lt;RElem&gt; init):degree{init.size()-1},</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        coeff{<span class="keyword">static_cast&lt;</span>RElem*<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="keyword">sizeof</span>(RElem)*init.size()))}{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">size_t</span> i = 0;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">for</span>(<span class="keyword">auto</span> x : init){</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keyword">new</span>(coeff+(i++)) RElem(x);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#aa4b6c02cebd97692048b0bb1fffa976b">   52</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#aa4b6c02cebd97692048b0bb1fffa976b">Polynomial</a>(<span class="keyword">const</span> <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;other):degree{other.degree}, coeff{<span class="keyword">static_cast&lt;</span>RElem*<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="keyword">sizeof</span>(RElem)*(degree+1)))}{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; degree; ++i){</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keyword">new</span> (coeff+i) RElem(other.coeff[i]);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ace51b717509e1171a540077ddf317c19">   61</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#ace51b717509e1171a540077ddf317c19">Polynomial</a>(<a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;&amp;other):degree{other.degree}, coeff{other.coeff}{</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        other.coeff = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a0aeeb1ed9296bd68276842b5957cacba">   69</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;<a class="code" href="classschoof_1_1Polynomial.html#a0aeeb1ed9296bd68276842b5957cacba">operator=</a>(<span class="keyword">const</span> <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;other){</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> tmp = other;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">using</span> std::swap;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        swap(degree, tmp.degree);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        swap(coeff, tmp.coeff);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ae803a97a8a4db0f69f537f9def5634e5">   81</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;<a class="code" href="classschoof_1_1Polynomial.html#ae803a97a8a4db0f69f537f9def5634e5">operator=</a>(<a class="code" href="classschoof_1_1Polynomial.html">Polynomial&lt;R&gt;</a> &amp;&amp;other){</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">using</span> std::swap;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        swap(degree, other.degree);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        swap(coeff, other.coeff);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2">   91</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2">clear</a>(){</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        ++degree;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">for</span>(; degree != 0; --degree){</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            coeff[degree-1].~RElem();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a0e1cd690fe8dbdaa084331e18cc1e767">  100</a></span>&#160;    <a class="code" href="classschoof_1_1Polynomial.html#a0e1cd690fe8dbdaa084331e18cc1e767">~Polynomial</a>(){</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <a class="code" href="classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2">clear</a>();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">operator</span> <span class="keyword">delete</span>(coeff);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ab1abff9cca7e94001e80d5786ec29ab4">  112</a></span>&#160;    RElem &amp;<a class="code" href="classschoof_1_1Polynomial.html#ab1abff9cca7e94001e80d5786ec29ab4">operator[]</a>(<span class="keywordtype">size_t</span> i){ <span class="keywordflow">return</span> coeff[i]; }</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ae336d952f39e7af3d816e841d87374ee">  116</a></span>&#160;    <span class="keyword">const</span> RElem &amp;<a class="code" href="classschoof_1_1Polynomial.html#ae336d952f39e7af3d816e841d87374ee">operator[]</a>(<span class="keywordtype">size_t</span> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> coeff[i]; }</div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a44146be28942ce0129b15cdaf6b39277">  122</a></span>&#160;    RElem <a class="code" href="classschoof_1_1Polynomial.html#a44146be28942ce0129b15cdaf6b39277">operator()</a>(<span class="keyword">const</span> RElem &amp;x){</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        RElem sum = RElem{};</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= degree; ++i){</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">if</span>(i == 0) sum += coeff[i];</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i == 1) sum += coeff[i] * x;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                RElem nx = x;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> j = 2; j &lt;= i; ++j){</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                    nx *= x;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                sum += coeff[i] * nx;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">return</span> sum;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#ab4b4183c338f359598a2411abc06cfac">  141</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classschoof_1_1Polynomial.html#ab4b4183c338f359598a2411abc06cfac">getDegree</a>(){ <span class="keywordflow">return</span> degree; }</div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="classschoof_1_1Polynomial.html#a25ea8a42c5c78e131c3dd8a67cf595d8">  145</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> <a class="code" href="classschoof_1_1Polynomial.html#a25ea8a42c5c78e131c3dd8a67cf595d8">getDegree</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> degree; }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;};</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keyword">template</span> &lt;Ring R&gt;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;Polynomial&lt;R&gt; operator+(<span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p1, <span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p2){</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordtype">size_t</span> mx;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">size_t</span> p1mx = p1.getDegree();</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">size_t</span> p2mx = p2.getDegree();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">if</span>(p1mx &gt; p2mx) mx = p1mx;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">else</span> mx = p2mx;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    Polynomial&lt;R&gt; p(mx);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= mx; ++i){</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">if</span>(mx &gt; p1mx) p[i] = p2[i];</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(mx &gt; p2mx) p[i] = p1[i];</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">else</span> p[i] = p1[i] + p2[i];</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">return</span> p;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;} </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">template</span> &lt;Ring R&gt;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;Polynomial&lt;R&gt; operator*(<span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p1, <span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p2){</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> R::element RElem;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    Polynomial&lt;R&gt; p(p1.getDegree() + p2.getDegree());</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> k = 0; k &lt;= p1.getDegree() + p2.getDegree(); ++k){</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        RElem new_coeff{};</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        RElem f{};</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        RElem g{};</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        RElem sum{};</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= k; ++i){</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            new_coeff = RElem{};</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keywordflow">if</span>(i &lt;= p1.getDegree()) f = p1[i];</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordflow">else</span> f = RElem{};</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">if</span>((k-i) &lt;= p2.getDegree()) g = p2[k-i];</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keywordflow">else</span> g = RElem{};</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            new_coeff = f * g;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            sum += new_coeff;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        p[k] = sum;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    }</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> p;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;}</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;} <span class="comment">// namespace schoof</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="keyword">template</span> &lt;Ring R&gt;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, <span class="keyword">const</span> Polynomial&lt;R&gt; &amp;p){</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt;= p.getDegree(); ++i){</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        out&lt;&lt;<span class="stringliteral">&quot;(&quot;</span>&lt;&lt;p[i]&lt;&lt;<span class="stringliteral">&quot;x^&quot;</span>&lt;&lt;i&lt;&lt;<span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;}</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;} <span class="comment">// namespace schoof</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_ace51b717509e1171a540077ddf317c19"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ace51b717509e1171a540077ddf317c19">schoof::Polynomial::Polynomial</a></div><div class="ttdeci">Polynomial(Polynomial&lt; R &gt; &amp;&amp;other)</div><div class="ttdoc">Move constructor for Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:60</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_a0e1cd690fe8dbdaa084331e18cc1e767"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a0e1cd690fe8dbdaa084331e18cc1e767">schoof::Polynomial::~Polynomial</a></div><div class="ttdeci">~Polynomial()</div><div class="ttdoc">Deconstructs Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:99</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_ab1abff9cca7e94001e80d5786ec29ab4"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ab1abff9cca7e94001e80d5786ec29ab4">schoof::Polynomial::operator[]</a></div><div class="ttdeci">RElem &amp; operator[](size_t i)</div><div class="ttdoc">Return coefficient for x of exponent i.</div><div class="ttdef"><b>Definition:</b> poly.hh:111</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_ae803a97a8a4db0f69f537f9def5634e5"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ae803a97a8a4db0f69f537f9def5634e5">schoof::Polynomial::operator=</a></div><div class="ttdeci">Polynomial&lt; R &gt; &amp; operator=(Polynomial&lt; R &gt; &amp;&amp;other)</div><div class="ttdoc">Move assignment for Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:80</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_a44146be28942ce0129b15cdaf6b39277"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a44146be28942ce0129b15cdaf6b39277">schoof::Polynomial::operator()</a></div><div class="ttdeci">RElem operator()(const RElem &amp;x)</div><div class="ttdoc">Evaluates the Polynomial at value x.</div><div class="ttdef"><b>Definition:</b> poly.hh:121</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_a00403717b4d1e6dd515e5d9d562d1de2"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2">schoof::Polynomial::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Deconstructs each coefficient, preparing to deconstruct Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:90</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_ae336d952f39e7af3d816e841d87374ee"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ae336d952f39e7af3d816e841d87374ee">schoof::Polynomial::operator[]</a></div><div class="ttdeci">const RElem &amp; operator[](size_t i) const</div><div class="ttdef"><b>Definition:</b> poly.hh:115</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_a8981830e575853b6d0f4f0c596cd91bf"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a8981830e575853b6d0f4f0c596cd91bf">schoof::Polynomial::Polynomial</a></div><div class="ttdeci">Polynomial(std::initializer_list&lt; RElem &gt; init)</div><div class="ttdoc">Initalizes a polynomial with coefficents from an initalizer list.</div><div class="ttdef"><b>Definition:</b> poly.hh:40</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_aa4b6c02cebd97692048b0bb1fffa976b"><div class="ttname"><a href="classschoof_1_1Polynomial.html#aa4b6c02cebd97692048b0bb1fffa976b">schoof::Polynomial::Polynomial</a></div><div class="ttdeci">Polynomial(const Polynomial&lt; R &gt; &amp;other)</div><div class="ttdoc">Copy constructor for Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:51</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html"><div class="ttname"><a href="classschoof_1_1Polynomial.html">schoof::Polynomial</a></div><div class="ttdoc">Polynomial class that takes coefficients from some generated by some ring R. Supports basic functions...</div><div class="ttdef"><b>Definition:</b> poly.hh:20</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_a6eda38225474c0d06422d235b2eb3cfc"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a6eda38225474c0d06422d235b2eb3cfc">schoof::Polynomial::Polynomial</a></div><div class="ttdeci">Polynomial(size_t degree, RElem x=RElem{})</div><div class="ttdoc">Initalizes polynomial with degree and each coefficent being x.</div><div class="ttdef"><b>Definition:</b> poly.hh:30</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_a0aeeb1ed9296bd68276842b5957cacba"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a0aeeb1ed9296bd68276842b5957cacba">schoof::Polynomial::operator=</a></div><div class="ttdeci">Polynomial&lt; R &gt; &amp; operator=(const Polynomial&lt; R &gt; &amp;other)</div><div class="ttdoc">Copy assignment for Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:68</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_a25ea8a42c5c78e131c3dd8a67cf595d8"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a25ea8a42c5c78e131c3dd8a67cf595d8">schoof::Polynomial::getDegree</a></div><div class="ttdeci">const size_t getDegree() const</div><div class="ttdef"><b>Definition:</b> poly.hh:144</div></div>
-<div class="ttc" id="aclassschoof_1_1Polynomial_html_ab4b4183c338f359598a2411abc06cfac"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ab4b4183c338f359598a2411abc06cfac">schoof::Polynomial::getDegree</a></div><div class="ttdeci">size_t getDegree()</div><div class="ttdoc">Returns degree of Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:140</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_ace51b717509e1171a540077ddf317c19"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ace51b717509e1171a540077ddf317c19">schoof::Polynomial::Polynomial</a></div><div class="ttdeci">Polynomial(Polynomial&lt; R &gt; &amp;&amp;other)</div><div class="ttdoc">Move constructor for Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:61</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_a0e1cd690fe8dbdaa084331e18cc1e767"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a0e1cd690fe8dbdaa084331e18cc1e767">schoof::Polynomial::~Polynomial</a></div><div class="ttdeci">~Polynomial()</div><div class="ttdoc">Deconstructs Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:100</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_ab1abff9cca7e94001e80d5786ec29ab4"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ab1abff9cca7e94001e80d5786ec29ab4">schoof::Polynomial::operator[]</a></div><div class="ttdeci">RElem &amp; operator[](size_t i)</div><div class="ttdoc">Return coefficient for x of exponent i.</div><div class="ttdef"><b>Definition:</b> poly.hh:112</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_ae803a97a8a4db0f69f537f9def5634e5"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ae803a97a8a4db0f69f537f9def5634e5">schoof::Polynomial::operator=</a></div><div class="ttdeci">Polynomial&lt; R &gt; &amp; operator=(Polynomial&lt; R &gt; &amp;&amp;other)</div><div class="ttdoc">Move assignment for Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:81</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_a44146be28942ce0129b15cdaf6b39277"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a44146be28942ce0129b15cdaf6b39277">schoof::Polynomial::operator()</a></div><div class="ttdeci">RElem operator()(const RElem &amp;x)</div><div class="ttdoc">Evaluates the Polynomial at value x.</div><div class="ttdef"><b>Definition:</b> poly.hh:122</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_a00403717b4d1e6dd515e5d9d562d1de2"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a00403717b4d1e6dd515e5d9d562d1de2">schoof::Polynomial::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Deconstructs each coefficient, preparing to deconstruct Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:91</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_ae336d952f39e7af3d816e841d87374ee"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ae336d952f39e7af3d816e841d87374ee">schoof::Polynomial::operator[]</a></div><div class="ttdeci">const RElem &amp; operator[](size_t i) const</div><div class="ttdef"><b>Definition:</b> poly.hh:116</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_a8981830e575853b6d0f4f0c596cd91bf"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a8981830e575853b6d0f4f0c596cd91bf">schoof::Polynomial::Polynomial</a></div><div class="ttdeci">Polynomial(std::initializer_list&lt; RElem &gt; init)</div><div class="ttdoc">Initalizes a polynomial with coefficents from an initalizer list.</div><div class="ttdef"><b>Definition:</b> poly.hh:41</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_aa4b6c02cebd97692048b0bb1fffa976b"><div class="ttname"><a href="classschoof_1_1Polynomial.html#aa4b6c02cebd97692048b0bb1fffa976b">schoof::Polynomial::Polynomial</a></div><div class="ttdeci">Polynomial(const Polynomial&lt; R &gt; &amp;other)</div><div class="ttdoc">Copy constructor for Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:52</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html"><div class="ttname"><a href="classschoof_1_1Polynomial.html">schoof::Polynomial</a></div><div class="ttdoc">Polynomial class that takes coefficients from some generated by some ring R. Supports basic functions...</div><div class="ttdef"><b>Definition:</b> poly.hh:21</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_a6eda38225474c0d06422d235b2eb3cfc"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a6eda38225474c0d06422d235b2eb3cfc">schoof::Polynomial::Polynomial</a></div><div class="ttdeci">Polynomial(size_t degree, RElem x=RElem{})</div><div class="ttdoc">Initalizes polynomial with degree and each coefficent being x.</div><div class="ttdef"><b>Definition:</b> poly.hh:31</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_a0aeeb1ed9296bd68276842b5957cacba"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a0aeeb1ed9296bd68276842b5957cacba">schoof::Polynomial::operator=</a></div><div class="ttdeci">Polynomial&lt; R &gt; &amp; operator=(const Polynomial&lt; R &gt; &amp;other)</div><div class="ttdoc">Copy assignment for Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:69</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_a25ea8a42c5c78e131c3dd8a67cf595d8"><div class="ttname"><a href="classschoof_1_1Polynomial.html#a25ea8a42c5c78e131c3dd8a67cf595d8">schoof::Polynomial::getDegree</a></div><div class="ttdeci">const size_t getDegree() const</div><div class="ttdef"><b>Definition:</b> poly.hh:145</div></div>
+<div class="ttc" id="aclassschoof_1_1Polynomial_html_ab4b4183c338f359598a2411abc06cfac"><div class="ttname"><a href="classschoof_1_1Polynomial.html#ab4b4183c338f359598a2411abc06cfac">schoof::Polynomial::getDegree</a></div><div class="ttdeci">size_t getDegree()</div><div class="ttdoc">Returns degree of Polynomial.</div><div class="ttdef"><b>Definition:</b> poly.hh:141</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

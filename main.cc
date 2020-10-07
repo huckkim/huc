@@ -24,6 +24,8 @@ public:
         friend class IntRing;
         friend IntRing::element operator+(IntRing::element a, IntRing::element b);
         friend IntRing::element operator*(IntRing::element a, IntRing::element b);
+        friend IntRing::element operator-(IntRing::element a);
+        friend bool operator==(IntRing::element a, IntRing::element b);
         friend std::ostream &operator<<(std::ostream &os, const element &a);
     };
     element zero(){ return element{0}; }
@@ -36,6 +38,14 @@ IntRing::element operator+(IntRing::element a, IntRing::element b){
 
 IntRing::element operator*(IntRing::element a, IntRing::element b){
     return IntRing::element{a.n * b.n};
+}
+
+IntRing::element operator-(IntRing::element a){
+    return IntRing::element{-a.n};
+}
+
+bool operator==(IntRing::element a, IntRing::element b){
+    return a.n == b.n;
 }
 
 std::ostream &operator<<(std::ostream &os, const IntRing::element &a){
@@ -54,6 +64,7 @@ typename R::element ring_add(R r){
     typename R::element b = r.one();
     return a+b;
 }
+
 
 int main(){
     IntRing I;
@@ -84,6 +95,8 @@ int main(){
     t = f+g;
     std::cout<<"f+g = t: "<<t<<std::endl;
     std::cout<<"t(two): "<<t(two)<<std::endl;
+
+    Elliptic<IntRing> E(I, I.one(), I.zero());
 
     return 0;
 }

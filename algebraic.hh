@@ -3,6 +3,37 @@
 
 #include <concepts>
 
+namespace schoof{
+
+/**
+ * Requirements of FieldElement
+ * 
+ * A FieldElement requires elements be closed under addition and multiplication
+ * as well as division defined for all values except the zero();
+ */
+template<typename T>
+concept FieldElement = requires(T a, T b){
+    {-a}->std::same_as<T>;
+    {a+b}->std::same_as<T>;
+    {a*b}->std::same_as<T>;
+    {a/b}->std::same_as<T>;
+    {a==b}->std::same_as<bool>;
+    a+=b;
+    a*=b;
+};
+
+/**
+ * Requirements of Field
+ * 
+ * A Ring requires elements from FieldElement and an additive/multiplicative identity
+ */
+template<typename R>
+concept Field = requires(R a){
+    typename R::element;
+    {a.zero()}->std::same_as<typename R::element>;
+    {a.one()}->std::same_as<typename R::element>;
+} && FieldElement<typename R::element>;
+
 /**
  * Requirements of RingElement
  * 
@@ -10,8 +41,10 @@
  */
 template<typename T>
 concept RingElement = requires(T a, T b){
+    {-a}->std::same_as<T>;
     {a+b}->std::same_as<T>;
     {a*b}->std::same_as<T>;
+    {a==b}->std::same_as<bool>;
     a+=b;
     a*=b;
 };
@@ -47,6 +80,7 @@ concept Rng = requires(R a, R b){
 template<typename T>
 concept GroupElement = requires(T a, T b){
     {a+b}->std::convertible_to<T>;
+    {a==b}->std::same_as<bool>;
 };
 
 /**
@@ -59,5 +93,7 @@ concept Group = requires(G a){
     typename G::element;
     {a.zero()}->std::same_as<typename G::element>;
 } && GroupElement<typename G::element>;
+
+}
 
 #endif
