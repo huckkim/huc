@@ -12,8 +12,11 @@ namespace schoof{
 template<typename GE>
 concept GroupElement = requires(GE a, GE b){
     {-a}->std::same_as<GE>;
+    {a-b}->std::same_as<GE>;
     {a+b}->std::same_as<GE>;
     {a==b}->std::same_as<bool>;
+    a+=b;
+    a-=b;
 };
 
 /**
@@ -35,9 +38,13 @@ concept Group = requires(G g){
 template<typename RE>
 concept RingElement = requires(RE a, RE b){
     {-a}->std::same_as<RE>;
+    {a-b}->std::same_as<RE>;
     {a+b}->std::same_as<RE>;
     {a*b}->std::same_as<RE>;
     {a==b}->std::same_as<bool>;
+    a+=b;
+    a*=b;
+    a-=b;
 };
 
 /**
@@ -61,11 +68,16 @@ concept Ring = requires(R r){
 template<typename FE>
 concept FieldElement = requires(FE a, FE b){
     {-a}->std::same_as<FE>;
+    {a-b}->std::same_as<FE>;
     {a.inv()}->std::same_as<FE>;
     {a+b}->std::same_as<FE>;
     {a*b}->std::same_as<FE>;
     {a/b}->std::same_as<FE>;
     {a==b}->std::same_as<bool>;
+    a-=b;
+    a+=b;
+    a*=b;
+    a/=b;
 };
 
 /**

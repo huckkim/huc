@@ -1,8 +1,8 @@
 var indexSectionsWithContent =
 {
-  0: "cegiops~",
-  1: "eip",
-  2: "cgop~",
+  0: "cegioprsvz~",
+  1: "eipr",
+  2: "cegopvz~",
   3: "s"
 };
 

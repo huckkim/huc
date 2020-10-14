@@ -9,13 +9,13 @@ We rely heavily on C++20's concepts to ensure that the templates adhere to the p
 Groups
 ------
 We first define GroupElement which must have the following properties 
--   Existence and closure under addition
-
-        {a+b}->std::same_as<GE>;
-
 -   Existence and closure under unary operator (negation)
 
         {-a}->std::same_as<GE>;
+
+-   Existence and closure under addition
+
+        {a+b}->std::same_as<GE>;
 
 -   Existence of equivalence operator
 
@@ -37,6 +37,10 @@ We next define Groups which must have the following properties
 Rings
 -----
 We first define RingElement which must have the following properties
+-   Existence and closure under unary operator (negation)
+
+        {-a}->std::same_as<RE>;
+
 -   Existence and closure under addition
 
         {a+b}->std::same_as<RE>;
@@ -44,10 +48,6 @@ We first define RingElement which must have the following properties
 -   Existence and closure under multiplication
 
         {a*b}->std::same_as<RE>;
-
--   Existence and closure under unary operator (negation)
-
-        {-a}->std::same_as<RE>;
 
 -   Existence of equivalence operator
 
@@ -73,6 +73,14 @@ We next define Rings which must have the following properties
 Fields
 ------
 We first define FieldElement which must have the following properties
+-   Existence and closure under unary operator (negation)
+
+        {-a}->std::same_as<FE>;
+
+-   Existence and closure under inverse function (inverse)
+
+        {a.inv()}->std::same_as<FE>;
+
 -   Existence and closure under addition
 
         {a+b}->std::same_as<FE>;
@@ -81,13 +89,9 @@ We first define FieldElement which must have the following properties
 
         {a*b}->std::same_as<FE>;
 
--   Existence and closure under unary operator (negation)
+-   Existence and closure under division(sugaring of multiplication of inverse)
 
-        {-a}->std::same_as<FE>;
-
--   Existence and closure under inverse function (inverse)
-
-        {a.inv()}->std::same_as<FE>;
+        {a/b}->std::same_as<FE>;
 
 -   Existence of equivalence operator
 
@@ -110,11 +114,20 @@ We next define Fields which must have the following properties
 
         && FieldElement<typename F::Element>;
 
-Modules (W.I.P)
+Modules (TODO)
 ---------------
 
 Built Ins
 =========
+
+Polynomials
+-----------
+
+Elliptic Curves
+---------------
+
+General GCD (TODO)
+------------------
 
 Using Schoof's
 ==============

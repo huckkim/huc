@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_7epolynomial_11',['~Polynomial',['../classschoof_1_1Polynomial.html#a0e1cd690fe8dbdaa084331e18cc1e767',1,'schoof::Polynomial']]]
+  ['schoof_27s_20algorithm_16',['Schoof&apos;s Algorithm',['../index.html',1,'']]],
+  ['schoof_17',['schoof',['../md_README.html',1,'']]]
 ];

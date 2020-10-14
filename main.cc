@@ -1,57 +1,11 @@
 #include <iostream>
-#include "poly.hh"
-#include "elliptic.hh"
+#include "algebraic.hh"
+// #include "poly.hh"
+// #include "elliptic.hh"
+#include "rings.hh"
+#include "fields.hh"
 
 using namespace schoof;
-
-class IntRing{
-public:
-    class element{
-        int n;
-    public:
-        element():n{0}{}
-        element(int n):n{n}{}
-
-        element &operator+=(element a){
-            n += a.n;
-            return *this;
-        }
-        element &operator*=(element a){
-            n *= a.n;
-            return *this;
-        }
-
-        friend class IntRing;
-        friend IntRing::element operator+(IntRing::element a, IntRing::element b);
-        friend IntRing::element operator*(IntRing::element a, IntRing::element b);
-        friend IntRing::element operator-(IntRing::element a);
-        friend bool operator==(IntRing::element a, IntRing::element b);
-        friend std::ostream &operator<<(std::ostream &os, const element &a);
-    };
-    element zero(){ return element{0}; }
-    element one(){ return element{1}; }
-};
-
-IntRing::element operator+(IntRing::element a, IntRing::element b){
-    return IntRing::element{a.n + b.n};
-}
-
-IntRing::element operator*(IntRing::element a, IntRing::element b){
-    return IntRing::element{a.n * b.n};
-}
-
-IntRing::element operator-(IntRing::element a){
-    return IntRing::element{-a.n};
-}
-
-bool operator==(IntRing::element a, IntRing::element b){
-    return a.n == b.n;
-}
-
-std::ostream &operator<<(std::ostream &os, const IntRing::element &a){
-    os<<a.n;
-    return os;
-}
 
 template<RingElement R>
 R add(R a, R b){
@@ -59,28 +13,41 @@ R add(R a, R b){
 }
 
 template<Ring R>
-typename R::element ring_add(R r){
-    typename R::element a = r.zero();
-    typename R::element b = r.one();
+typename R::Element ring_add(R r){
+    typename R::Element a = r.zero();
+    typename R::Element b = r.one();
     return a+b;
 }
 
-
+template<Field F>
+void test(F f){
+    typename F::Element one = f.one();
+    typename F::Element two = one + one;
+    typename F::Element three = two + one;
+    typename F::Element two_thirds = two/three;
+    typename F::Element one_half = one/two;
+    std::cout<<one<<" "<<two<<" "<<three<<" "<<two_thirds<<" "<<one_half<<std::endl;
+    std::cout<<one_half + two_thirds<<std::endl;
+}
 int main(){
     IntRing I;
-    IntRing::element one = I.one();
-    IntRing::element two = one + one;
-    IntRing::element three = one + two;
+    IntRing::Element one = I.one();
+    IntRing::Element two = add<IntRing::Element>(one, one);
+    IntRing::Element three = one + two;
+    IntRing::Element neg_three = -three;
 
-    std::cout<<one<<" "<<two<<" "<<three<<std::endl;
+    std::cout<<one<<" "<<two<<" "<<three<<" "<<neg_three<<std::endl;
+    Rationals R;
+    test<Rationals>(R);
 
+    /*
     Polynomial<IntRing> f{one, two, three};
     std::cout<<"f: "<<f<<std::endl;
 
-    IntRing::element sum = add<IntRing::element>(one, two);
+    IntRing::Element sum = add<IntRing::Element>(one, two);
     std::cout<<"sum: "<<sum<<std::endl;
 
-    IntRing::element val = f(two);
+    IntRing::Element val = f(two);
     std::cout<<"f(two): "<<val<<std::endl;
 
     Polynomial<IntRing> g(5, I.one());
@@ -96,7 +63,9 @@ int main(){
     std::cout<<"f+g = t: "<<t<<std::endl;
     std::cout<<"t(two): "<<t(two)<<std::endl;
 
-    Elliptic<IntRing> E(I, I.one(), I.zero());
+    Rationals R;
 
+    Elliptic<Rationals> E(R, R.one(), R.zero());
+    /**/
     return 0;
 }

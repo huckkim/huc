@@ -73,9 +73,9 @@ Concept Definitions</h1>
 <h2><a class="anchor" id="autotoc_md1"></a>
 Groups</h2>
 <p>We first define GroupElement which must have the following properties</p><ul>
-<li>Existence and closure under addition <pre class="fragment">{a+b}-&gt;std::same_as&lt;GE&gt;;
-</pre></li>
 <li>Existence and closure under unary operator (negation) <pre class="fragment">{-a}-&gt;std::same_as&lt;GE&gt;;
+</pre></li>
+<li>Existence and closure under addition <pre class="fragment">{a+b}-&gt;std::same_as&lt;GE&gt;;
 </pre></li>
 <li>Existence of equivalence operator <pre class="fragment">{a==b}-&gt;std::same_as&lt;bool&gt;;
 </pre></li>
@@ -91,11 +91,11 @@ Groups</h2>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Rings</h2>
 <p>We first define RingElement which must have the following properties</p><ul>
+<li>Existence and closure under unary operator (negation) <pre class="fragment">{-a}-&gt;std::same_as&lt;RE&gt;;
+</pre></li>
 <li>Existence and closure under addition <pre class="fragment">{a+b}-&gt;std::same_as&lt;RE&gt;;
 </pre></li>
 <li>Existence and closure under multiplication <pre class="fragment">{a*b}-&gt;std::same_as&lt;RE&gt;;
-</pre></li>
-<li>Existence and closure under unary operator (negation) <pre class="fragment">{-a}-&gt;std::same_as&lt;RE&gt;;
 </pre></li>
 <li>Existence of equivalence operator <pre class="fragment">{a==b}-&gt;std::same_as&lt;bool&gt;;
 </pre></li>
@@ -113,13 +113,15 @@ Rings</h2>
 <h2><a class="anchor" id="autotoc_md3"></a>
 Fields</h2>
 <p>We first define FieldElement which must have the following properties</p><ul>
+<li>Existence and closure under unary operator (negation) <pre class="fragment">{-a}-&gt;std::same_as&lt;FE&gt;;
+</pre></li>
+<li>Existence and closure under inverse function (inverse) <pre class="fragment">{a.inv()}-&gt;std::same_as&lt;FE&gt;;
+</pre></li>
 <li>Existence and closure under addition <pre class="fragment">{a+b}-&gt;std::same_as&lt;FE&gt;;
 </pre></li>
 <li>Existence and closure under multiplication <pre class="fragment">{a*b}-&gt;std::same_as&lt;FE&gt;;
 </pre></li>
-<li>Existence and closure under unary operator (negation) <pre class="fragment">{-a}-&gt;std::same_as&lt;FE&gt;;
-</pre></li>
-<li>Existence and closure under inverse function (inverse) <pre class="fragment">{a.inv()}-&gt;std::same_as&lt;FE&gt;;
+<li>Existence and closure under division(sugaring of multiplication of inverse) <pre class="fragment">{a/b}-&gt;std::same_as&lt;FE&gt;;
 </pre></li>
 <li>Existence of equivalence operator <pre class="fragment">{a==b}-&gt;std::same_as&lt;bool&gt;;
 </pre></li>
@@ -135,10 +137,16 @@ Fields</h2>
 </pre></li>
 </ul>
 <h2><a class="anchor" id="autotoc_md4"></a>
-Modules (W.I.P)</h2>
+Modules (TODO)</h2>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Built Ins</h1>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Polynomials</h2>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Elliptic Curves</h2>
+<h2><a class="anchor" id="autotoc_md8"></a>
+General GCD (TODO)</h2>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Using Schoof's</h1>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
