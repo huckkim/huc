@@ -5,7 +5,7 @@ Todo
 - Integers (done ish)
 - Rationals
 - Polynomials (single var)
-- Polynomaisl (multiple var)
+- Polynomials (multiple var)
 - Algebraic functions/variables
 - Transcendentals
 - Differentiation?
