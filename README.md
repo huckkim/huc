@@ -1,8 +1,15 @@
-# schoof
-A small project trying for the second time to implement Schoof's aglorithm on finite elliptic curves in C++
+# HUC (Huck's Ugly Cas)
+A small project trying to implement a basic computer algebra system
 
-# HUC, CAS?
-We will see
+Todo
+- Integers (done ish)
+- Rationals
+- Polynomials (single var)
+- Polynomaisl (multiple var)
+- Algebraic functions/variables
+- Transcendentals
+- Differentiation?
+- Integration (we can only dream)
 
 ## requirements
 Requires g++-10, or access to C++20 concepts 
