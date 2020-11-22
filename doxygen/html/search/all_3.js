@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['intring_4',['IntRing',['../classschoof_1_1IntRing.html',1,'schoof']]]
+  ['huck_27s_20useless_20cas_4',['Huck&apos;s Useless CAS',['../index.html',1,'']]]
 ];

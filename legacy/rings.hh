@@ -5,7 +5,6 @@ namespace schoof{
 
 #include <iostream>
 
-
 /**
  * @brief A simple wrapper for the integers to satisfies the requirements for Ring the ring concept, see algebraic.hh
  */

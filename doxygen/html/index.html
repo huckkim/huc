@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>schoof: Schoof&#39;s Algorithm</title>
+<title>schoof: Huck&#39;s Useless CAS</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,81 +63,38 @@ $(function() {
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Schoof's Algorithm </div>  </div>
+<div class="title">Huck's Useless CAS </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Basic implementation of Schoof's algorithm</p>
+<div class="textblock"><p>Started as a basic implementation of Schoof's algorithm, now has exteneded to an attempt at Computer Algebra System. God have mercy. Each structure have corresponding element concepts which ensure existence of operations, closure, and ability to construct</p>
 <h1><a class="anchor" id="autotoc_md0"></a>
-Concept Definitions</h1>
-<p>We rely heavily on C++20's concepts to ensure that the templates adhere to the proper requirements. We provide basic concepts for Groups, Rings, and Fields.(Modules are a W.I.P). Each concept enfoces basic axioms that can be used by a built in. We mainly enforce existence axioms and valid operations, and assume associativity as enforcing associativty is too expensive.</p>
-<h2><a class="anchor" id="autotoc_md1"></a>
-Groups</h2>
-<p>We first define GroupElement which must have the following properties</p><ul>
-<li>Existence and closure under unary operator (negation) <pre class="fragment">{-a}-&gt;std::same_as&lt;GE&gt;;
-</pre></li>
-<li>Existence and closure under addition <pre class="fragment">{a+b}-&gt;std::same_as&lt;GE&gt;;
-</pre></li>
-<li>Existence of equivalence operator <pre class="fragment">{a==b}-&gt;std::same_as&lt;bool&gt;;
-</pre></li>
+Groups</h1>
+<ul>
+<li>additive inverse</li>
+<li>closed under subtraction/addition</li>
+<li>comparison</li>
+<li>constructor for zero</li>
 </ul>
-<p>We next define Groups which must have the following properties</p><ul>
-<li>Existence of Element <pre class="fragment">typename G::Element;
-</pre></li>
-<li>Existence of a additive identity(zero) <pre class="fragment">{g.zero()}-&gt;std::same_as&lt;typename G::Element&gt;;
-</pre></li>
-<li>The Element must be a GroupElement <pre class="fragment">&amp;&amp; GroupElement&lt;typename G::Element&gt;;
-</pre></li>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Rings</h1>
+<ul>
+<li>additive inverse</li>
+<li>closed under subtraction/addition/multiplication</li>
+<li>comparison</li>
+<li>constructor for zero and one</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md2"></a>
-Rings</h2>
-<p>We first define RingElement which must have the following properties</p><ul>
-<li>Existence and closure under unary operator (negation) <pre class="fragment">{-a}-&gt;std::same_as&lt;RE&gt;;
-</pre></li>
-<li>Existence and closure under addition <pre class="fragment">{a+b}-&gt;std::same_as&lt;RE&gt;;
-</pre></li>
-<li>Existence and closure under multiplication <pre class="fragment">{a*b}-&gt;std::same_as&lt;RE&gt;;
-</pre></li>
-<li>Existence of equivalence operator <pre class="fragment">{a==b}-&gt;std::same_as&lt;bool&gt;;
-</pre></li>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Fields</h1>
+<ul>
+<li>additive/multiplicative inverse</li>
+<li>closed under subtraction/addition/multiplication</li>
+<li>comparison</li>
+<li>constructor for zero and one</li>
 </ul>
-<p>We next define Rings which must have the following properties</p><ul>
-<li>Existence of Element <pre class="fragment">typename R::Element;
-</pre></li>
-<li>Existence of an additive identity(zero) <pre class="fragment">{r.zero()}-&gt;std::same_as&lt;typename R::Element&gt;;
-</pre></li>
-<li>Existence of a multiplicative identity(one) <pre class="fragment">{r.one()}-&gt;std::same_as&lt;typename R::Element&gt;;
-</pre></li>
-<li>The Element must be a RingElement <pre class="fragment">&amp;&amp; RingElement&lt;typename R::Element&gt;;
-</pre></li>
-</ul>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Fields</h2>
-<p>We first define FieldElement which must have the following properties</p><ul>
-<li>Existence and closure under unary operator (negation) <pre class="fragment">{-a}-&gt;std::same_as&lt;FE&gt;;
-</pre></li>
-<li>Existence and closure under inverse function (inverse) <pre class="fragment">{a.inv()}-&gt;std::same_as&lt;FE&gt;;
-</pre></li>
-<li>Existence and closure under addition <pre class="fragment">{a+b}-&gt;std::same_as&lt;FE&gt;;
-</pre></li>
-<li>Existence and closure under multiplication <pre class="fragment">{a*b}-&gt;std::same_as&lt;FE&gt;;
-</pre></li>
-<li>Existence and closure under division(sugaring of multiplication of inverse) <pre class="fragment">{a/b}-&gt;std::same_as&lt;FE&gt;;
-</pre></li>
-<li>Existence of equivalence operator <pre class="fragment">{a==b}-&gt;std::same_as&lt;bool&gt;;
-</pre></li>
-</ul>
-<p>We next define Fields which must have the following properties</p><ul>
-<li>Existence of Element <pre class="fragment">typename F::Element;
-</pre></li>
-<li>Existence of an additive identity(zero) <pre class="fragment">{r.zero()}-&gt;std::same_as&lt;typename F::Element&gt;;
-</pre></li>
-<li>Existence of a multiplicative identity(one) <pre class="fragment">{r.one()}-&gt;std::same_as&lt;typename F::Element&gt;;
-</pre></li>
-<li>The Element must be a FieldElement <pre class="fragment">&amp;&amp; FieldElement&lt;typename F::Element&gt;;
-</pre></li>
-</ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Modules (TODO)</h2>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Modules (TODO)</h1>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Algebras (TODO)</h1>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Built Ins</h1>
 <h2><a class="anchor" id="autotoc_md6"></a>

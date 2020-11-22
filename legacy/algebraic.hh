@@ -3,7 +3,7 @@
 
 #include <concepts>
 
-namespace schoof{
+namespace huc{
 /**
  * Requirements of a GroupElement
  * 
@@ -15,20 +15,10 @@ concept GroupElement = requires(GE a, GE b){
     {a-b}->std::same_as<GE>;
     {a+b}->std::same_as<GE>;
     {a==b}->std::same_as<bool>;
-    a+=b;
-    a-=b;
+    a+=b; a-=b;
+    GE{};
+    GE(0);
 };
-
-/**
- * Requirements of a Group
- * 
- * A Group requires elements from GroupElements and an additive identity
- */
-template<typename G>
-concept Group = requires(G g){
-    typename G::Element;
-    {g.zero()}->std::same_as<typename G::Element>;
-} && GroupElement<typename G::Element>;
 
 /**
  * Requirements of RingElement
@@ -42,22 +32,11 @@ concept RingElement = requires(RE a, RE b){
     {a+b}->std::same_as<RE>;
     {a*b}->std::same_as<RE>;
     {a==b}->std::same_as<bool>;
-    a+=b;
-    a*=b;
-    a-=b;
+    a+=b; a*=b; a-=b;
+    RE{};
+    RE(0);
+    RE(1);
 };
-
-/**
- * Requirements of Ring
- * 
- * A Ring requires elements from RingElement and an additive/multiplicative identity
- */
-template<typename R>
-concept Ring = requires(R r){
-    typename R::Element;
-    {r.zero()}->std::same_as<typename R::Element>;
-    {r.one()}->std::same_as<typename R::Element>;
-} && RingElement<typename R::Element>;
 
 /**
  * Requirements of FieldElement
@@ -74,23 +53,11 @@ concept FieldElement = requires(FE a, FE b){
     {a*b}->std::same_as<FE>;
     {a/b}->std::same_as<FE>;
     {a==b}->std::same_as<bool>;
-    a-=b;
-    a+=b;
-    a*=b;
-    a/=b;
+    a-=b; a+=b; a*=b; a/=b;
+    FE{};
+    FE(0);
+    FE(1);
 };
 
-/**
- * Requirements of Field
- * 
- * A Field requires elements from FieldElement and an additive/multiplicative identity
- */
-template<typename F>
-concept Field = requires(F f){
-    typename F::Element;
-    {f.zero()}->std::same_as<typename F::Element>;
-    {f.one()}->std::same_as<typename F::Element>;
-} && FieldElement<typename F::Element>;
-}
-
+} // namespace huc
 #endif
