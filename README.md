@@ -2,10 +2,16 @@
 A small project trying to implement a basic computer algebra system
 
 Todo
-- Integers (done ish)
-- Rationals
-- Polynomials (single var)
+- Integers (done (using gmp))
+- Rationals (doneish need to make wrapper)
+- Polynomials (single var done (work on factoring for Integers?))
 - Polynomials (multiple var)
+- Matrices (multidim?)
+  - determinant
+  - characterisic polynomial / minimal polynomial
+  - Decompositions
+  - Spectral stuff
+Probably take a while
 - Algebraic functions/variables
 - Transcendentals
 - Differentiation?
