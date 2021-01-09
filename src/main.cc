@@ -52,5 +52,7 @@ int main(){
     //p1*a;
     MatrixDense<Integer, 3>(1,2,3);
     /**/
+
+    MatrixDense<Integer, 3> m;
     return 0;
 }
