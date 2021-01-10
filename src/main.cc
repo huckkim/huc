@@ -3,8 +3,9 @@
 #include "alg_struct.hh"
 #include "Rings/Integer.hh"
 #include "Modules/Polynomial.hh"
-#include "Modules/Matrix.hh"
+//#include "Modules/Matrix.hh"
 #include "Modules/CartesianProduct.hh"
+#include "Rings/IntegerMod.hh"
 
 using namespace huc;
 
@@ -53,6 +54,6 @@ int main(){
     MatrixDense<Integer, 3>(1,2,3);
     /**/
 
-    MatrixDense<Integer, 3> m;
+    //MatrixDense<Integer, 3> m;
     return 0;
 }

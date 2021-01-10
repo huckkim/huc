@@ -36,9 +36,6 @@ struct DenseMatrixSlice{
     template<typename ... Dims>
     DenseMatrixSlice(Dims ...dims);
 
-    template <typename ...Dims,
-              typename = typename std::enable_if<
-
     size_t size;
     size_t start;
     std::array<size_t, N> extents;
