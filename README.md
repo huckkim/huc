@@ -3,6 +3,7 @@ A small project trying to implement a basic computer algebra system
 
 Todo
 - Integers (done (using gmp))
+- Gaussian Integers
 - Rationals (doneish need to make wrapper)
 - Polynomials 
   - Fast Fourier Transform for integer mult
