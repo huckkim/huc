@@ -4,7 +4,7 @@ A small project trying to implement a basic computer algebra system
 Todo
 - Integers (done (using gmp))
 - Gaussian Integers
-- Rationals (doneish need to make wrapper)
+- Rationals (done)
 - Polynomials 
   - Fast Fourier Transform for integer mult
   - (single var done (work on factoring for Integers?))
