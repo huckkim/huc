@@ -1,2 +1,0 @@
-/usr/bin/ar qc libIntegerLib.a  CMakeFiles/IntegerLib.dir/Integer.cc.o
-/usr/bin/ranlib libIntegerLib.a
