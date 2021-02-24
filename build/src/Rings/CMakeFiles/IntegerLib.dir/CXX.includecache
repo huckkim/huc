@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hkim/huc/src/Rings/Integer.cc
+huc/Rings/Integer.hh
+/home/hkim/huc/src/Rings/huc/Rings/Integer.hh
+

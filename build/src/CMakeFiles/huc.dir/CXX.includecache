@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hkim/huc/src/main.cc
+iostream
+-
+string
+-
+huc/Rings/Integer.hh
+/home/hkim/huc/src/huc/Rings/Integer.hh
+huc/Modules/Polynomial.hh
+/home/hkim/huc/src/huc/Modules/Polynomial.hh
+

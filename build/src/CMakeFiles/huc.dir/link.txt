@@ -1,0 +1,1 @@
+/usr/bin/g++-10     CMakeFiles/huc.dir/main.cc.o  -o ../bin/huc  Rings/libIntegerLib.a -lgmpxx -lgmp 
