@@ -9,7 +9,7 @@ Todo
   - Fast Fourier Transform for integer mult
   - (single var done (work on factoring for Integers?))
 - Polynomials (multiple var)
-- Matrices (multidim?)
+- Matrices (multidim?) [taken from C++ Programming Language 4th ed]
   - determinant
   - characterisic polynomial / minimal polynomial
   - Decompositions

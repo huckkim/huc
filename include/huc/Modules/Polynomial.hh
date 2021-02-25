@@ -14,6 +14,7 @@ class PolynomialUnivariateSparse{
 template<Ring RE>
 class PolynomialUnivariateDense{
     std::vector<RE> p;
+public:
 
     using value_type                    = typename std::vector<RE>::value_type;
     using iterator                      = typename std::vector<RE>::iterator;
@@ -21,7 +22,6 @@ class PolynomialUnivariateDense{
     
     using reverse_iterator              = typename std::vector<RE>::reverse_iterator;
     using const_reverse_iterator        = typename std::vector<RE>::const_reverse_iterator;
-public:
     PolynomialUnivariateDense(std::initializer_list<RE> lst){
         for(auto a : lst){
             p.push_back(a);
@@ -29,10 +29,13 @@ public:
     }
 
     PolynomialUnivariateDense() = default;
+    // Copy
     PolynomialUnivariateDense(const PolynomialUnivariateDense &) = default;
     PolynomialUnivariateDense &operator=(const PolynomialUnivariateDense &) = default;
+    // Move
     PolynomialUnivariateDense(PolynomialUnivariateDense &&) = default;
     PolynomialUnivariateDense &operator=(PolynomialUnivariateDense &&) = default;
+    
     ~PolynomialUnivariateDense() = default;
 
     constexpr RE &operator[](size_t i){ return p[i]; }
@@ -50,6 +53,7 @@ public:
     constexpr const_reverse_iterator rbegin() const noexcept { return p.rbegin(); }
     constexpr const_reverse_iterator rend() const noexcept { return p.rend(); }
 
+    // Negate a polymomial and return the new one
     PolynomialUnivariateDense operator-(){
         std::vector<RE> tmp;
         for(auto &c : p){
@@ -57,6 +61,8 @@ public:
         }
         return tmp;
     }
+
+    // Subtract two polynomials
     PolynomialUnivariateDense &operator-=(const PolynomialUnivariateDense &other){
         size_t deg = (size() > other.size()) ? size() : other.size();
         for(size_t i = 0; i < deg; ++i){
@@ -73,6 +79,7 @@ public:
         }
         return *this;
     }
+    // add two polynomials
     PolynomialUnivariateDense &operator+=(const PolynomialUnivariateDense &other){
         size_t deg = (size() > other.size()) ? size() : other.size();
         for(size_t i = 0; i < deg; ++i){
@@ -90,6 +97,7 @@ public:
         return *this;
     }
 
+    // Scalar multiplication makes it a vector space
     PolynomialUnivariateDense &operator*=(const RE &s){
         for(auto &c : p){
             p *= s;
@@ -110,8 +118,10 @@ public:
     }
 
     // TODO: Technically an Algebra as well as a module
-    PolynomialUnivariateDense &operator*=(const PolynomialUnivariateDense &other){
-
+    template<Ring _RE,
+             typename std::enable_if_t<std::is_convertible<_RE, Integer>::value>* = nullptr>
+    PolynomialUnivariateDense<_RE> &operator*=(const PolynomialUnivariateDense<_RE> &other){
+        return *this;
     }
 
     constexpr bool operator==(const PolynomialUnivariateDense &other){ return p == other.p; }
@@ -129,6 +139,7 @@ public:
     template<Ring _RE>
     friend PolynomialUnivariateDense<_RE> operator*(const _RE &s, const PolynomialUnivariateDense<_RE> &a);
     template<Ring _RE>
+    // Module multiplication
     friend PolynomialUnivariateDense<_RE> operator*(const PolynomialUnivariateDense<_RE> &s, const PolynomialUnivariateDense<_RE> &a);
     template<Ring _RE>
     friend std::ostream &operator<<(std::ostream &os, const PolynomialUnivariateDense<_RE> &a);
@@ -146,6 +157,7 @@ PolynomialUnivariateDense<RE> operator-(const PolynomialUnivariateDense<RE> &a, 
     tmp -= b;
     return tmp;
 }
+// Module multiplication
 template<Ring RE>
 PolynomialUnivariateDense<RE> operator*(const PolynomialUnivariateDense<RE> &a, const PolynomialUnivariateDense<RE> &b){
     PolynomialUnivariateDense<RE> tmp(a);
