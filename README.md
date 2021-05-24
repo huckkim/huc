@@ -1,5 +1,5 @@
 # HUC (Huck's Ugly Cas)
-A small project trying to implement a basic computer algebra system
+A small project trying to implement a ~~basic computer algebra system~~ mathematical template library(mtl)? + mtl::algorithms?
 
 Todo
 - Integers (done (using gmp))
