@@ -9,10 +9,12 @@
 using namespace huc;
 
 int main(){
-    PolynomialUnivariateDense<Integer> f;
+    PolynomialUnivariateDense<Integer> f{1,2,3,4};
     PolynomialUnivariateDense<Integer> g;
 
-    f *= g; 
+    //f *= g; 
+
+    std::cout << f << std::endl;
 
     return 0;
 }

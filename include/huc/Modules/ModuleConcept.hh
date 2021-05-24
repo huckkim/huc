@@ -16,8 +16,8 @@ concept Ring = requires(RE a, RE b){
     {a*b}->std::same_as<RE>;
     {a==b}->std::same_as<bool>;
     {a!=b}->std::same_as<bool>;
-    a+=b; a*=b; a-=b;
-    RE{};
+    a+=b; a-=b; a*=b;
+    RE{}; RE();
 };
 
 #endif
