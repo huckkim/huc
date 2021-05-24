@@ -61,8 +61,8 @@ TEST(PolynomialUnivariateUnitTest, ComplexAdditionWithZero){
 }
 
 TEST(PolynomialUnivariateUnitTest, SimpleSubtraction){
-    std::vector<int> f_b = {1, 1, 2, 3, 5, 8, 13};
-    std::vector<int> g_b = {13, 8, 5, 3, 2, 1, 1};
+    std::vector<int> f_b {1, 1, 2, 3, 5, 8, 13};
+    std::vector<int> g_b {13, 8, 5, 3, 2, 1, 1};
     std::vector<int> out;
     auto addIt = [](int a, int b) { return a - b; };
     huc::utility::for_each_binary(f_b.begin(), f_b.end(), g_b.begin(), std::back_inserter(out), addIt);
@@ -90,6 +90,48 @@ TEST(PolynomialUnivariateUnitTest, ComplexSubtractionWithZero){
 
 }
 
-TEST(PolynomialUnivariateUnitTest, PolynomialEvaluation){
+// Euler's prime generating polynomial
+TEST(PolynomialUnivariateUnitTest, SimplePolynomialEvaluation){
+    std::vector<int> primes{41, 43, 47, 53, 61, 71, 83, 97, 113, 131, 151, 173, 197, 223, 251, 281, 313,
+                            347, 383, 421, 461, 503, 547, 593, 641, 691, 743, 797, 853, 911, 971, 1033,
+                            1097, 1163, 1231, 1301, 1373, 1447, 1523, 1601, 1681, 1763};
+    
+    PolynomialUnivariateDense<int> euler_poly{41, 1, 1};
+    for(int n = 0; auto p : primes){
+        EXPECT_EQ(p, euler_poly(n++));
+    }
+}
 
+TEST(PolynomialUnivariateUnitTest, ComplexPolynomialEvaluation){
+    // what to do here?
+}
+
+TEST(PolynomialUnivariateUnitTest, ScalarMultiplication){
+    std::vector<int> f_b {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
+    PolynomialUnivariateDense<int> f(f_b);
+    for(int i = 0; i < 100; ++i){
+
+    }
+}
+
+TEST(PolynomialUnivariateUnitTest, LeadingZeroes){
+    std::vector<int> f_b {0,1,2,3,4,5,6,0,0,0};
+    PolynomialUnivariateDense<int> f(f_b);
+
+    EXPECT_EQ(6, f.degree());
+    EXPECT_FALSE(huc::utility::container_equal(f.begin(), f.end(), f_b.begin(), f_b.end()));
+    f_b.erase(f_b.begin()+7, f_b.end());
+    EXPECT_TRUE(huc::utility::container_equal(f.begin(), f.end(), f_b.begin(), f_b.end()));
+}
+
+TEST(PolynomialUnivariateUnitTest, FalseComparison){
+    PolynomialUnivariateDense<int> f {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16, 1, 3, 4, 0};
+    PolynomialUnivariateDense<int> g {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
+    EXPECT_FALSE(huc::utility::container_equal(f.begin(), f.end(), g.begin(), g.end()));
+}
+
+TEST(PolynomialUnivariateUnitTest, TrueComparison){
+    PolynomialUnivariateDense<int> f {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
+    PolynomialUnivariateDense<int> g {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
+    EXPECT_TRUE(huc::utility::container_equal(f.begin(), f.end(), g.begin(), g.end()));
 }

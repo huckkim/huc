@@ -19,8 +19,14 @@ class PolynomialUnivariateSparse{
 template<Ring RE>
 class PolynomialUnivariateDense{
     std::vector<RE> p;
+    void removeLeadingZero(){
+        RE zero{};
+        for(auto &it : std::views::reverse(p)){
+            if(it == zero) p.pop_back();
+            else break;
+        }
+    }
 public:
-
     using value_type                    = typename std::vector<RE>::value_type;
     using iterator                      = typename std::vector<RE>::iterator;
     using const_iterator                = typename std::vector<RE>::const_iterator;
@@ -31,9 +37,10 @@ public:
         for(auto a : lst){
             p.push_back(a);
         }
+        removeLeadingZero();
     }
-    PolynomialUnivariateDense(const std::vector<RE> &p) : p{p} {}
-    PolynomialUnivariateDense(std::vector<RE> &&p) : p{std::move(p)} {}
+    PolynomialUnivariateDense(const std::vector<RE> &p) : p{p} {removeLeadingZero(); }
+    PolynomialUnivariateDense(std::vector<RE> &&p) : p{std::move(p)} { removeLeadingZero(); }
 
     PolynomialUnivariateDense() = default;
     // Copy
@@ -98,22 +105,19 @@ public:
             }
         }
         // remove leading zeros
-        while(rbegin() != rend() && *rbegin() == 0){
-            p.pop_back();
-        }
+        removeLeadingZero();
         return *this;
     }
 
     // Scalar multiplication makes it a vector space
     PolynomialUnivariateDense &operator*=(const RE &s){
-        for(auto &c : p){
-            p *= s;
-        }
+        std::ranges::for_each(p, [&s](auto &c){ c*= s; });
         return *this;
     }
 
     // Horners method
     RE operator()(const RE &x){
+        // look to std it
         auto a_n = rbegin();
         RE b_n = *a_n;
         ++a_n;

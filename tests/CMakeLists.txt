@@ -16,6 +16,6 @@ macro(package_add_test TESTNAME)
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
 
-package_add_test(test1 test1.cc)
+package_add_test(test1 test1.cc ${PROJECT_SOURCE_DIR}/include/huc/Modules/Polynomial.hh)
 
 package_add_test(PolynomialUnitTest PolynomialUnitTest.cc)

@@ -9,12 +9,15 @@
 using namespace huc;
 
 int main(){
-    PolynomialUnivariateDense<Integer> f{1,2,3,4};
-    PolynomialUnivariateDense<Integer> g;
+    std::vector<int> f_b{1,2,3,4,0,0,0};
+    PolynomialUnivariateDense<int> f(f_b);
+    PolynomialUnivariateDense<int> g;
 
     //f *= g; 
 
     std::cout << f << std::endl;
+    std::cout << "deg: " << f.degree() << std::endl;
+
 
     return 0;
 }
