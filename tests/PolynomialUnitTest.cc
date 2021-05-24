@@ -15,7 +15,7 @@ TEST(PolynomialUnivariateUnitTest, InitializerListConstructor){
 
     PolynomialUnivariateDense<int> f{ 66, 11, 7, 53, 34, 98, 4, 70, 64, 5, 23, 52, 87 };
     EXPECT_EQ(12, f.degree());
-    EXPECT_TRUE(huc::utility::container_equal(f_b.begin(), f_b.end(), f.begin(), f.end()));
+    EXPECT_TRUE(utility::ranges::container_equal(f_b, f));
 }
 
 TEST(PolynomialUnivariateUnitTest, VectorConstructor){
@@ -23,7 +23,7 @@ TEST(PolynomialUnivariateUnitTest, VectorConstructor){
 
     PolynomialUnivariateDense<int> f(f_b);
     EXPECT_EQ(12, f.degree());
-    EXPECT_TRUE(huc::utility::container_equal(f_b.begin(), f_b.end(), f.begin(), f.end()));
+    EXPECT_TRUE(utility::ranges::container_equal(f_b, f));
 }
 
 TEST(PolynomialUnivariateUnitTest, SimpleAddition){
@@ -31,17 +31,17 @@ TEST(PolynomialUnivariateUnitTest, SimpleAddition){
     std::vector<int> g_b = {13, 8, 5, 3, 2, 1, 1};
     std::vector<int> out;
     auto addIt = [](int a, int b) { return a + b; };
-    huc::utility::for_each_binary(f_b.begin(), f_b.end(), g_b.begin(), std::back_inserter(out), addIt);
+    utility::ranges::for_each_binary(f_b, g_b, std::back_inserter(out), addIt);
 
     PolynomialUnivariateDense<int> f(f_b);
     PolynomialUnivariateDense<int> g(g_b);
     PolynomialUnivariateDense<int> h = f + g;
     EXPECT_EQ(6, h.degree());
-    EXPECT_TRUE(huc::utility::container_equal(h.begin(), h.end(), out.begin(), out.end()));
+    EXPECT_TRUE(utility::ranges::container_equal(h, out));
 
     f += g;
     EXPECT_EQ(6, f.degree());
-    EXPECT_TRUE(huc::utility::container_equal(f.begin(), f.end(), out.begin(), out.end()));
+    EXPECT_TRUE(utility::ranges::container_equal(f, out));
 }
 
 TEST(PolynomialUnivariateUnitTest, SimpleAdditionWithLeadingZero){
@@ -64,18 +64,18 @@ TEST(PolynomialUnivariateUnitTest, SimpleSubtraction){
     std::vector<int> f_b {1, 1, 2, 3, 5, 8, 13};
     std::vector<int> g_b {13, 8, 5, 3, 2, 1, 1};
     std::vector<int> out;
-    auto addIt = [](int a, int b) { return a - b; };
-    huc::utility::for_each_binary(f_b.begin(), f_b.end(), g_b.begin(), std::back_inserter(out), addIt);
+    auto subIt = [](int a, int b) { return a - b; };
+    utility::ranges::for_each_binary(f_b, g_b, std::back_inserter(out), subIt);
 
     PolynomialUnivariateDense<int> f(f_b);
     PolynomialUnivariateDense<int> g(g_b);
     PolynomialUnivariateDense<int> h = f - g;
     EXPECT_EQ(6, h.degree());
-    EXPECT_TRUE(huc::utility::container_equal(h.begin(), h.end(), out.begin(), out.end()));
+    EXPECT_TRUE(utility::ranges::container_equal(h, out));
 
     f -= g;
     EXPECT_EQ(6, f.degree());
-    EXPECT_TRUE(huc::utility::container_equal(f.begin(), f.end(), out.begin(), out.end()));
+    EXPECT_TRUE(utility::ranges::container_equal(f, out));
 }
 
 TEST(PolynomialUnivariateUnitTest, SimpleSubtractionWithZero){
@@ -109,7 +109,19 @@ TEST(PolynomialUnivariateUnitTest, ComplexPolynomialEvaluation){
 TEST(PolynomialUnivariateUnitTest, ScalarMultiplication){
     std::vector<int> f_b {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
     PolynomialUnivariateDense<int> f(f_b);
+    
     for(int i = 0; i < 100; ++i){
+        auto tmp(f_b);
+        std::ranges::for_each(tmp, [i](auto &c) {c*=i;});
+        // Binary mult with scalar
+        PolynomialUnivariateDense<int> f_1 = f * i;
+        PolynomialUnivariateDense<int> f_2 = i * f;
+        // times equal operator
+        PolynomialUnivariateDense<int> f_3(f);
+        f_3 *= i;
+        EXPECT_TRUE(utility::ranges::container_equal(tmp, f_1));
+        EXPECT_TRUE(utility::ranges::container_equal(tmp, f_2));
+        EXPECT_TRUE(utility::ranges::container_equal(tmp, f_3));
 
     }
 }
@@ -119,19 +131,19 @@ TEST(PolynomialUnivariateUnitTest, LeadingZeroes){
     PolynomialUnivariateDense<int> f(f_b);
 
     EXPECT_EQ(6, f.degree());
-    EXPECT_FALSE(huc::utility::container_equal(f.begin(), f.end(), f_b.begin(), f_b.end()));
+    EXPECT_FALSE(utility::ranges::container_equal(f, f_b));
     f_b.erase(f_b.begin()+7, f_b.end());
-    EXPECT_TRUE(huc::utility::container_equal(f.begin(), f.end(), f_b.begin(), f_b.end()));
+    EXPECT_TRUE(utility::ranges::container_equal(f, f_b));
 }
 
 TEST(PolynomialUnivariateUnitTest, FalseComparison){
     PolynomialUnivariateDense<int> f {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16, 1, 3, 4, 0};
     PolynomialUnivariateDense<int> g {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
-    EXPECT_FALSE(huc::utility::container_equal(f.begin(), f.end(), g.begin(), g.end()));
+    EXPECT_FALSE(utility::ranges::container_equal(f, g));
 }
 
 TEST(PolynomialUnivariateUnitTest, TrueComparison){
     PolynomialUnivariateDense<int> f {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
     PolynomialUnivariateDense<int> g {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
-    EXPECT_TRUE(huc::utility::container_equal(f.begin(), f.end(), g.begin(), g.end()));
+    EXPECT_TRUE(utility::ranges::container_equal(f, g));
 }

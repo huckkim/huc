@@ -33,10 +33,7 @@ public:
     using reverse_iterator              = typename std::vector<RE>::reverse_iterator;
     using const_reverse_iterator        = typename std::vector<RE>::const_reverse_iterator;
 
-    PolynomialUnivariateDense(std::initializer_list<RE> lst){
-        for(auto a : lst){
-            p.push_back(a);
-        }
+    PolynomialUnivariateDense(std::initializer_list<RE> lst) : p{lst} {
         removeLeadingZero();
     }
     PolynomialUnivariateDense(const std::vector<RE> &p) : p{p} {removeLeadingZero(); }
@@ -70,9 +67,7 @@ public:
     // Negate a polymomial and return the new one
     PolynomialUnivariateDense operator-(){
         std::vector<RE> tmp;
-        for(auto &c : p){
-            tmp.push_back(-c);
-        }
+        std::ranges::for_each(tmp, [&tmp](int c){ tmp.push_back(-c); });
         return tmp;
     }
 
@@ -88,9 +83,7 @@ public:
             }
         }
         // remove leading zeros
-        while(rbegin() != rend() && *rbegin() == 0){
-            p.pop_back();
-        }
+        removeLeadingZero();
         return *this;
     }
     // add two polynomials
