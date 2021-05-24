@@ -147,3 +147,10 @@ TEST(PolynomialUnivariateUnitTest, TrueComparison){
     PolynomialUnivariateDense<int> g {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
     EXPECT_TRUE(utility::ranges::container_equal(f, g));
 }
+
+TEST(PolynomialUnivariateUnitTest, Negation){
+    PolynomialUnivariateDense<int> f {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16, 1, 3, 4, 0};
+    auto g = -f;
+    auto negated = [](auto c1, auto c2){ return c1 == -c2; };
+    EXPECT_TRUE(utility::ranges::container_equal(f, g, negated));
+}

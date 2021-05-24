@@ -67,8 +67,8 @@ public:
     // Negate a polymomial and return the new one
     PolynomialUnivariateDense operator-(){
         std::vector<RE> tmp;
-        std::ranges::for_each(tmp, [&tmp](int c){ tmp.push_back(-c); });
-        return tmp;
+        std::ranges::for_each(p, [&tmp](auto &c){ tmp.push_back(-c); });
+        return PolynomialUnivariateDense(std::move(tmp));
     }
 
     // Subtract two polynomials
