@@ -120,12 +120,14 @@ public:
         return b_n;
     }
 
-    // // TODO: Technically an Algebra as well as a module
-    // template<Ring _RE,
-    //          typename std::enable_if_t<std::is_convertible<_RE, Integer>::value>* = nullptr>
-    // PolynomialUnivariateDense<_RE> &operator*=(const PolynomialUnivariateDense<_RE> &other){
-    //     return *this;
-    // }
+    // TODO: Technically an Algebra as well as a module
+    // TODO: replace std::integral
+    template<typename IntegralRing> 
+        requires Ring<IntegralRing> && std::integral<IntegralRing>
+    PolynomialUnivariateDense<IntegralRing> &operator*=(const PolynomialUnivariateDense<IntegralRing> &other){
+        std::cout << "whacked" << std::endl;
+        return *this;
+    }
 
     bool operator==(const PolynomialUnivariateDense &other) const = default;
 

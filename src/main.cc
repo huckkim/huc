@@ -18,6 +18,12 @@ int main(){
     std::cout << f << std::endl;
     std::cout << "deg: " << f.degree() << std::endl;
 
+    f *= g;
+
+    // will not compile ... for now
+    // PolynomialUnivariateDense<Integer> h1;
+    // PolynomialUnivariateDense<Integer> h2;
+    // h1 *= h2;
 
     return 0;
 }

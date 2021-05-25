@@ -124,7 +124,6 @@ TEST(PolynomialUnivariateDenseUnitTest, ScalarMultiplication){
         EXPECT_TRUE(utility::ranges::container_equal(tmp, f_1));
         EXPECT_TRUE(utility::ranges::container_equal(tmp, f_2));
         EXPECT_TRUE(utility::ranges::container_equal(tmp, f_3));
-
     }
 }
 
