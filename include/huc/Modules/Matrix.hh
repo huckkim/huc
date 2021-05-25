@@ -5,7 +5,7 @@
 #include <vector>
 #include <array>
 #include <type_traits>
-#include "huc/Rings/RingConcept.hh"
+#include "huc/algebraic/Structures.hh"
 
 namespace huc{
 

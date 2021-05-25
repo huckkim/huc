@@ -1,7 +1,7 @@
 #ifndef HUC_CARTESIAN_PRODUCT_MODULE_HH
 #define HUC_CARTESIAN_PRODUCT_MODULE_HH
 
-#include "huc/Ring/RingConcept.hh"
+#include "huc/algebraic/Structures.hh"
 #include <tuple>
 #include <iostream>
 

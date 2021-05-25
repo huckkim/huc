@@ -4,12 +4,14 @@
 
 using namespace huc;
 
-TEST(PolynomialUnivariateUnitTest, BasicConstructor){
+namespace HucUnitTesting::PolynomialInt{
+
+TEST(PolynomialUnivariateDenseUnitTest, BasicConstructor){
     PolynomialUnivariateDense<int> f;
     EXPECT_EQ(0, f.degree());
 }
 
-TEST(PolynomialUnivariateUnitTest, InitializerListConstructor){
+TEST(PolynomialUnivariateDenseUnitTest, InitializerListConstructor){
     // 66 + 11x + 7x^2 + 53x^3 + 34x^4 + 98x^5 + 4x^6 + 70x^7 + 64x^8 + 5x^9 + 23x^10 + 52x^11 + 87x^12
     std::vector<int> f_b = { 66, 11, 7, 53, 34, 98, 4, 70, 64, 5, 23, 52, 87 };
 
@@ -18,7 +20,7 @@ TEST(PolynomialUnivariateUnitTest, InitializerListConstructor){
     EXPECT_TRUE(utility::ranges::container_equal(f_b, f));
 }
 
-TEST(PolynomialUnivariateUnitTest, VectorConstructor){
+TEST(PolynomialUnivariateDenseUnitTest, VectorConstructor){
     std::vector<int> f_b = { 66, 11, 7, 53, 34, 98, 4, 70, 64, 5, 23, 52, 87 };
 
     PolynomialUnivariateDense<int> f(f_b);
@@ -26,7 +28,7 @@ TEST(PolynomialUnivariateUnitTest, VectorConstructor){
     EXPECT_TRUE(utility::ranges::container_equal(f_b, f));
 }
 
-TEST(PolynomialUnivariateUnitTest, SimpleAddition){
+TEST(PolynomialUnivariateDenseUnitTest, SimpleAddition){
     std::vector<int> f_b = {1, 1, 2, 3, 5, 8, 13};
     std::vector<int> g_b = {13, 8, 5, 3, 2, 1, 1};
     std::vector<int> out;
@@ -44,11 +46,11 @@ TEST(PolynomialUnivariateUnitTest, SimpleAddition){
     EXPECT_TRUE(utility::ranges::container_equal(f, out));
 }
 
-TEST(PolynomialUnivariateUnitTest, SimpleAdditionWithLeadingZero){
+TEST(PolynomialUnivariateDenseUnitTest, SimpleAdditionWithLeadingZero){
 
 }
 
-TEST(PolynomialUnivariateUnitTest, ComplexAddition){
+TEST(PolynomialUnivariateDenseUnitTest, ComplexAddition){
     PolynomialUnivariateDense<int> f {59, -26, 71, 84, 20, -54, -57, 47, -62, 21, 8 , 88, 95, 19, -60};
     PolynomialUnivariateDense<int> g {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
     PolynomialUnivariateDense<int> h = f + g;
@@ -56,11 +58,11 @@ TEST(PolynomialUnivariateUnitTest, ComplexAddition){
 
 }
 
-TEST(PolynomialUnivariateUnitTest, ComplexAdditionWithZero){
+TEST(PolynomialUnivariateDenseUnitTest, ComplexAdditionWithZero){
 
 }
 
-TEST(PolynomialUnivariateUnitTest, SimpleSubtraction){
+TEST(PolynomialUnivariateDenseUnitTest, SimpleSubtraction){
     std::vector<int> f_b {1, 1, 2, 3, 5, 8, 13};
     std::vector<int> g_b {13, 8, 5, 3, 2, 1, 1};
     std::vector<int> out;
@@ -78,20 +80,20 @@ TEST(PolynomialUnivariateUnitTest, SimpleSubtraction){
     EXPECT_TRUE(utility::ranges::container_equal(f, out));
 }
 
-TEST(PolynomialUnivariateUnitTest, SimpleSubtractionWithZero){
+TEST(PolynomialUnivariateDenseUnitTest, SimpleSubtractionWithZero){
 
 }
 
-TEST(PolynomialUnivariateUnitTest, ComplexSubtraction){
+TEST(PolynomialUnivariateDenseUnitTest, ComplexSubtraction){
 
 }
 
-TEST(PolynomialUnivariateUnitTest, ComplexSubtractionWithZero){
+TEST(PolynomialUnivariateDenseUnitTest, ComplexSubtractionWithZero){
 
 }
 
 // Euler's prime generating polynomial
-TEST(PolynomialUnivariateUnitTest, SimplePolynomialEvaluation){
+TEST(PolynomialUnivariateDenseUnitTest, SimplePolynomialEvaluation){
     std::vector<int> primes{41, 43, 47, 53, 61, 71, 83, 97, 113, 131, 151, 173, 197, 223, 251, 281, 313,
                             347, 383, 421, 461, 503, 547, 593, 641, 691, 743, 797, 853, 911, 971, 1033,
                             1097, 1163, 1231, 1301, 1373, 1447, 1523, 1601, 1681, 1763};
@@ -102,11 +104,11 @@ TEST(PolynomialUnivariateUnitTest, SimplePolynomialEvaluation){
     }
 }
 
-TEST(PolynomialUnivariateUnitTest, ComplexPolynomialEvaluation){
+TEST(PolynomialUnivariateDenseUnitTest, ComplexPolynomialEvaluation){
     // what to do here?
 }
 
-TEST(PolynomialUnivariateUnitTest, ScalarMultiplication){
+TEST(PolynomialUnivariateDenseUnitTest, ScalarMultiplication){
     std::vector<int> f_b {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
     PolynomialUnivariateDense<int> f(f_b);
     
@@ -126,7 +128,7 @@ TEST(PolynomialUnivariateUnitTest, ScalarMultiplication){
     }
 }
 
-TEST(PolynomialUnivariateUnitTest, LeadingZeroes){
+TEST(PolynomialUnivariateDenseUnitTest, LeadingZeroes){
     std::vector<int> f_b {0,1,2,3,4,5,6,0,0,0};
     PolynomialUnivariateDense<int> f(f_b);
 
@@ -136,21 +138,23 @@ TEST(PolynomialUnivariateUnitTest, LeadingZeroes){
     EXPECT_TRUE(utility::ranges::container_equal(f, f_b));
 }
 
-TEST(PolynomialUnivariateUnitTest, FalseComparison){
+TEST(PolynomialUnivariateDenseUnitTest, FalseComparison){
     PolynomialUnivariateDense<int> f {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16, 1, 3, 4, 0};
     PolynomialUnivariateDense<int> g {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
     EXPECT_FALSE(utility::ranges::container_equal(f, g));
 }
 
-TEST(PolynomialUnivariateUnitTest, TrueComparison){
+TEST(PolynomialUnivariateDenseUnitTest, TrueComparison){
     PolynomialUnivariateDense<int> f {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
     PolynomialUnivariateDense<int> g {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16};
     EXPECT_TRUE(utility::ranges::container_equal(f, g));
 }
 
-TEST(PolynomialUnivariateUnitTest, Negation){
+TEST(PolynomialUnivariateDenseUnitTest, Negation){
     PolynomialUnivariateDense<int> f {29, 3 , -38, 17, -2 , 33, 48, 14, 0, -27, 16, 1, 3, 4, 0};
     auto g = -f;
     auto negated = [](auto c1, auto c2){ return c1 == -c2; };
     EXPECT_TRUE(utility::ranges::container_equal(f, g, negated));
+}
+
 }

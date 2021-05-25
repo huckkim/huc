@@ -2,19 +2,20 @@
 A small project trying to implement a ~~basic computer algebra system~~ mathematical template library(mtl)? + mtl::algorithms?
 
 Todo
+- Polynomial
+  - Fast Fourier Transform for integer mult (http://www.cs.toronto.edu/~denisp/csc373/docs/tutorial3-adv-writeup.pdf)
+  - (single var done (work on factoring for Integers?))
 - Integers (done (using gmp))
 - Gaussian Integers
 - Rationals (done)
-- Polynomials 
-  - Fast Fourier Transform for integer mult
-  - (single var done (work on factoring for Integers?))
-- Polynomials (multiple var)
 - Matrices (multidim?) [taken from C++ Programming Language 4th ed]
   - determinant
   - characterisic polynomial / minimal polynomial
   - Decompositions
   - Spectral stuff
-Probably take a while
+- functions / functors
+
+Probably take a while 
 - Algebraic functions/variables
 - Transcendentals
 - Differentiation?
@@ -41,4 +42,9 @@ class CartesianProd : CartesianProd<R, N-1>{
 };
 ```
 
-Lexer to convert
+# MTL
+Probably make most objects templated containers with operations attatched to them
+- ```Polynomials<RE>```
+- ```Matrix<RE, m, n>```
+and then a templated algorithms library for things like
+- ```auto huc::gcd<EDE>(auto a, auto b)```

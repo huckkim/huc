@@ -1,8 +1,7 @@
 #ifndef HUC_POLYNOMIAL_MODULE_HH
 #define HUC_POLYNOMIAL_MODULE_HH
 
-#include "huc/Groups/GroupConcept.hh"
-#include "huc/Rings/RingConcept.hh"
+#include "huc/algebraic/Structures.hh"
 
 #include <vector>
 #include <ostream>
